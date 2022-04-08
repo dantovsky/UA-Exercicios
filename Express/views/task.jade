@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1= title
+  p Bem-vindo ao #{title}
+  h2 Listagem te tarefas
+  input(type="text", name="search")
+  ul
+  each item in taskList 
+    li= item.name
