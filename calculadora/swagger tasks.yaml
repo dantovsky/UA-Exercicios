@@ -1,0 +1,62 @@
+openapi: "3.0.3"
+info:
+title: "Tasks Application"
+description: "Small academic example for a calculator app."
+version: "1.0.0"
+
+# RESPONSES
+# 200 - código da resposta HTTP
+# description - Pequena descrição da resposta
+# content - A resposta devolvida pelo servidor
+# application/json - Tipo de resposta
+# schema - estrutura dos dados da resposta;
+# type - tipo de dados da resposta do servidor
+# items - Tipo do item do array
+# properties - Estrutura de cada um dos objetos do array
+
+paths:
+    /tasks: # endpoint
+        get: # Método HTTP para aceder ao endpoint
+            summary: "List all tasks" # Breve descrição do endpoint
+            responses: # Lista de respostas possíveis do endpoint
+                "200":
+                    description: "Successfully fetched all Tasks"
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                                    properties:
+                                        id:
+                                            type: number
+                                        description:
+                                            type: string
+                                        status:
+                                            type: string
+    /tasks/{taskId}:
+        get:
+            summary: "Get the task with Id equal to taskId"
+            parameters:
+                - in: path # o hifem indica que é um input 
+                    name: taskId
+                    schema:
+                        type: integer
+                    required: true
+                    description: "Task identifier"
+            responses:
+                '200':
+                    description: "Task with the given id"
+                    content:
+                        application/json:
+                        schema:
+                            type: object
+                        properties:
+                            id:
+                                type: number
+                            description:
+                                type: string
+                            status:
+                                type: string
+                '404':
+                    description: "Resource not found"

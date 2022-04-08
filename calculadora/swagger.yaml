@@ -1,0 +1,38 @@
+openapi: "3.0.3"
+info:
+title: "Tasks Application"
+description: "Small academic example for a calculator app."
+version: "1.0.0"
+
+# RESPONSES
+# 200 - código da resposta HTTP
+# description - Pequena descrição da resposta
+# content - A resposta devolvida pelo servidor
+# application/json - Tipo de resposta
+# schema - estrutura dos dados da resposta;
+# type - tipo de dados da resposta do servidor
+# items - Tipo do item do array
+# properties - Estrutura de cada um dos objetos do array
+
+paths:
+  /calculator/sum/{a}/{b}: # endpoint
+    get: # Método HTTP para aceder ao endpoint
+      summary: "Calculates the sum of two number." # Breve descrição do endpoint
+      parameters:
+        - in: path # o hifem indica que é um input
+          name: a
+          schema:
+            type: integer
+          required: true
+          description: "first parcel"
+        - in: path
+          name: b
+          schema:
+            type: integer
+          required: true
+          description: "second parcel"
+      responses:
+        "200":
+          description: "OK"
+        #"406":
+          #description: "Divisor igual a 0"
