@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator App</title>
+    <style>
+        input {
+            width: 68px;
+        }
+
+        .buttons {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .result {
+            background-color: #cdf8e7;
+            padding: 5px;
+            margin-top: 8px;
+            display: block;
+            width: fit-content;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Calc App</h1>
+    <p>Num a: <input id="a" type="number"></p>
+    <p>Num b: <input id="b" type="number"></p>
+    <div class="buttons">
+        <button class="calc" onclick="sum();">+</button>
+        <button class="calc" onclick="sub();">-</button>
+        <button class="calc" onclick="mult();"><span>*</span></button>
+        <button class="calc" onclick="div();">/</button>
+    </div>
+    <div class="result">» <span id="result">...</span></div>
+
+    <script>
+        const BASE = 'http://localhost:3000/calculator/'
+        let result = document.getElementById('result')
+
+        function operations(operation) {
+
+            const a = document.getElementById('a').value
+            const b = document.getElementById('b').value
+
+            fetch(BASE + operation + `/${a}/${b}`)
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                    result.innerText = `The ${res.operation} is ${operation == 'div' ? Number(res.result).toFixed(2) : res.result}`
+                })
+        }
+
+        function sum() {
+            operations(`sum`)
+        }
+
+        function sub() {
+            operations(`sub`)
+        }
+
+        function mult() {
+            operations(`mult`)
+        }
+
+        function div() {
+            operations(`div`)
+        }
+
+    </script>
+</body>
+
+</html>
