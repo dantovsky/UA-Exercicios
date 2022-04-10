@@ -1,7 +1,7 @@
 openapi: "3.0.3"
 info:
 title: "Tasks Application"
-description: "Small academic example for a calculator app."
+description: "Small academic example for a tasks app."
 version: "1.0.0"
 
 # RESPONSES
@@ -39,11 +39,11 @@ paths:
             summary: "Get the task with Id equal to taskId"
             parameters:
                 - in: path # o hifem indica que é um input 
-                    name: taskId
-                    schema:
-                        type: integer
-                    required: true
-                    description: "Task identifier"
+                  name: taskId
+                  schema:
+                      type: integer
+                  required: true
+                  description: "Task identifier"
             responses:
                 '200':
                     description: "Task with the given id"

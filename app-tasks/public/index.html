@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator App</title>
+    <style>
+        .task {
+            box-shadow: 2px 0px 8px 1px #aaa;
+            padding: 2px 14px;
+            margin-bottom: 20px;
+            max-width: 500px;
+            width: 100%;
+            cursor: pointer;
+        }
+        .more-info {
+            display: none;
+        }
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Tasks App :: Exercício 2</h1>
+    <div id="tasks"></div>
+
+    <script>
+        const BASE = 'http://localhost:3000/tasks/'
+
+        function getTasks() {
+            fetch(BASE)
+                .then(res => res.json())
+                .then(tasks => {
+                    console.log(tasks)
+                    let content = ''
+                    for (task of tasks) {
+                        content += `
+                    <div id="${task.id}" class="task" onclick="showMoreInfo(this, ${task.id});">
+                        <h2>${task.name}</h2>
+                        <div class="more-info"></div>
+                    </div>
+                    `
+                    }
+                    const elemTasks = document.getElementById('tasks')
+                    elemTasks.innerHTML = content
+                })
+        }
+
+        // Lista as tasks ao carregar a página
+        getTasks()
+
+        function showMoreInfo(elem, taskId) {
+
+            let moreInfo = elem.getElementsByClassName('more-info')[0]
+
+            if(hasClassShow(moreInfo.classList)) {
+                moreInfo.classList.remove('show')
+            } else {
+                fetch(BASE + '/' + taskId)
+                    .then(res => res.json())
+                    .then(task => {
+                        moreInfo.innerHTML = `
+                            <p>${task.description}</p>
+                            <p>Status: ${task.status == '0' ? 'por fazer' : 'OK'}</p>
+                        `
+                        moreInfo.classList.add('show')
+                    })
+            }
+        }
+
+        function hasClassShow(classList) {
+            return Array.from(classList).includes('show') ? true : false;
+        }
+
+    </script>
+</body>
+
+</html>
