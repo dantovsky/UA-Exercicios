@@ -1,9 +1,3 @@
-# UA-Exercicios
-Exercícios das UCs da UA.
-
-UCS:
-- SAWM » Serviços para Aplicações Web e Móveis
-
 # Aula 24/04/2022
 
 ## Escolher um dos exercícios
@@ -15,6 +9,14 @@ Passos para o exercício
 - definir os endpoints
 - implementar a documentação no Swagger no file yaml
 - implementar os serviços REST
+
+### Definição dos endpoints
+
+/livraria/livros        GET list all
+/livraria/livro/:id     GET list by id
+/livraria/livro         POST add new
+/livraria/livro/:id     PUT edit
+/livraria/livro/:id     DELETE remove
 
 ## Preparar o ambiente
 
@@ -50,3 +52,8 @@ Executar a app
 
 Aceder à app
 - Endereço web » http://localhost:3000
+
+# Infos
+
+Swagger Editor » ajudar a construir o file Swagger.yaml
+Link: https://editor.swagger.io/

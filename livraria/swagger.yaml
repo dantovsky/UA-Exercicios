@@ -1,0 +1,96 @@
+openapi: 3.0.3 # Versão feita em https://editor.swagger.io/
+info:
+  title: "Tasks Application"
+  description: "Small academic example for a tasks app."
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "info@dantemarinho.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+# host: "dantemarinho.com/api/livraria"
+# basePath: "/v2"
+
+# tags:
+# - name: "livraria"
+#   description: "Everything about your Pets"
+#   externalDocs:
+#     description: "Find out more"
+#     url: "http://swagger.io"
+# - name: "pet"
+#   description: "Everything about your Pets"
+#   externalDocs:
+#     description: "Find out more"
+#     url: "http://swagger.io"
+# - name: "store"
+#   description: "Access to Petstore orders"
+# - name: "user"
+#   description: "Operations about user"
+#   externalDocs:
+#     description: "Find out more about our store"
+#     url: "http://swagger.io"
+
+# schemes:
+# - "https"
+# - "http"
+
+# RESPONSES
+# 200 - código da resposta HTTP
+# description - Pequena descrição da resposta
+# content - A resposta devolvida pelo servidor
+# application/json - Tipo de resposta
+# schema - estrutura dos dados da resposta;
+# type - tipo de dados da resposta do servidor
+# items - Tipo do item do array
+# properties - Estrutura de cada um dos objetos do array
+
+paths:
+  /livraria/livros: # endpoint
+    get: # Método HTTP para aceder ao endpoint
+      summary: "List all tasks" # Breve descrição do endpoint
+      responses: # Lista de respostas possíveis do endpoint
+        "200":
+          description: "Successfully fetched all Tasks"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    isbn:
+                      type: number
+                    title:
+                      type: string
+                    description:
+                      type: string
+                    price:
+                      type: number
+  /livraria/livro:         # POST add new
+    post:
+      summary: "POST :: add a new book"
+      description: ""
+      parameters:
+      - in: "header"
+        name: "book"
+        description: "my descrip"
+        required: true
+        schema:
+          type: object
+          properties:
+            id:
+              type: number
+            isbn:
+              type: number
+            title:
+              type: string
+            description:
+              type: string
+            price:
+              type: number
+      responses:
+        "200":
+          description: "Invalid input"
