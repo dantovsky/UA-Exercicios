@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 // Swagger
-const swaggerUI = require('swagger -ui-express');
+const swaggerUI = require('swagger-ui-express');
 var fs = require('fs');
 var jsyaml = require('js-yaml');
 var spec = fs.readFileSync('swagger.yaml', 'utf8');

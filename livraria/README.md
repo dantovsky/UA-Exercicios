@@ -53,7 +53,64 @@ Executar a app
 Aceder à app
 - Endereço web » http://localhost:3000
 
+# MySQL config
+
+- Instalação do MySQL Server (as a Windows Server)
+- Ininiar o serviço MySQL80
+- CMD » mysql -u root -p
+- Criar novo user:
+```sql
+CREATE USER 'dantiii'@'localhost' IDENTIFIED WITH mysql_native_password BY 'dantiii';
+```
+- OU alterar o user root:
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+flush privileges;
+```
+
+Query para criar BD books e inserir dados:
+```sql
+CREATE DATABASE IF NOT EXISTS bookstore CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE bookstore;
+
+CREATE TABLE books (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  isbn int(11) NOT NULL,
+  title varchar(70) NOT NULL,
+  description varchar(300),
+  author varchar(50),
+  PRIMARY KEY (id)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+INSERT INTO books (id, isbn, title, description, author) VALUES
+(1, 01112223334, 'Seja Bom', 'Um livro que fala como você pode ser uma pessoa melhor.', 'Dante Marinho'),
+(2, 01112223335, 'Fábicra de Vencedores', 'Destinado às pessoas com forte vertente empreendedora, ou que almejam essa conquista.', 'Janguiê Diniz'),
+(3, 01112223336, 'The Duck Donad', 'A história de como surgiu um dos personagens mais caricatos que alguma vez já existiu.', 'Paul Erold'),
+(4, 01112223337, 'The Beatles History', 'A história completa da vida e do surgimento do grupo que foi amado por todo o mundo.', NULL),
+(5, 01112223338, 'Foco', 'Aprenda a como realizar taregas e finalizá-las.', NULL);
+```
+
 # Infos
 
 Swagger Editor » ajudar a construir o file Swagger.yaml
 Link: https://editor.swagger.io/
+
+Install and use nodemon
+https://www.digitalocean.com/community/tutorials/workflow-nodemon
+
+# Help links
+
+MySQL Community Downloads
+https://dev.mysql.com/downloads/installer/
+
+ER_NOT_SUPPORTED_AUTH_MODE - MySQL server
+https://stackoverflow.com/questions/44946270/er-not-supported-auth-mode-mysql-server
+
+Getting Started with MySQL
+https://dev.mysql.com/doc/mysql-getting-started/en/
+
+Upgrade Node and NPM
+https://www.freecodecamp.org/news/how-to-update-node-and-npm-to-the-latest-version/
+
+Adminer :: Database management in a single PHP file
+https://www.adminer.org/#download
