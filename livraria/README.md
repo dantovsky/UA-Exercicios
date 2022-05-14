@@ -61,6 +61,7 @@ Aceder à app
 - Criar novo user:
 ```sql
 CREATE USER 'dantiii'@'localhost' IDENTIFIED WITH mysql_native_password BY 'dantiii';
+grant all privileges on *.* to 'dantiii'@'localhost';
 ```
 - OU alterar o user root:
 ```sql
