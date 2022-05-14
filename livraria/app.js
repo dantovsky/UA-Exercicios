@@ -12,9 +12,13 @@ var spec = fs.readFileSync('swagger.yaml', 'utf8');
 swaggerDocument = jsyaml.load(spec);
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/livraria');
+var livrariaRouter = require('./routes/livraria');
 
 var app = express();
+
+// Express built-in middleware functions to support JSON-encoded
+// app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -35,7 +39,7 @@ app.use(
 
 // Base endpoinst
 app.use('/', indexRouter);
-app.use('/livraria', usersRouter);
+app.use('/livraria', livrariaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
