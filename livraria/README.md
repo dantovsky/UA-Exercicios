@@ -115,3 +115,6 @@ https://www.freecodecamp.org/news/how-to-update-node-and-npm-to-the-latest-versi
 
 Adminer :: Database management in a single PHP file
 https://www.adminer.org/#download
+
+Node.js, MySQL and async/await
+https://codeburst.io/node-js-mysql-and-async-await-6fb25b01b628
