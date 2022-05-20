@@ -17,8 +17,8 @@ var livrariaRouter = require('./routes/livraria');
 var app = express();
 
 // Express built-in middleware functions to support JSON-encoded
-// app.use(express.json());
-// app.use(express.urlencoded({ extended: true }));
+app.use(express.json()); // Preciso disso?
+app.use(express.urlencoded({ extended: true })); // Preciso disso?
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -69,28 +69,34 @@ paths:
                       type: string
                     price:
                       type: number
-  /livraria/livro:         # POST add new
+  # /livraria/livros:         # POST add new
     post:
       summary: "POST :: add a new book"
+      consumes:
+        - application/json
       description: ""
-      parameters:
-      - in: "header"
-        name: "book"
-        description: "my descrip"
-        required: true
-        schema:
-          type: object
-          properties:
-            id:
-              type: number
-            isbn:
-              type: number
-            title:
-              type: string
-            description:
-              type: string
-            price:
-              type: number
+      requestBody:
+        content:
+          application/json:
+        # - in: body
+        #   name: book
+        #   description: My descrip
+        #   required: true
+            schema:
+              type: object
+              properties:
+                # id:
+                #   type: number
+                isbn:
+                  type: number
+                title:
+                  type: string
+                description:
+                  type: string
+                author:
+                  type: string
+                # price:
+                #   type: number
       responses:
         "200":
           description: "Invalid input"

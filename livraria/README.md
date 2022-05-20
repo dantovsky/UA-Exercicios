@@ -96,7 +96,7 @@ INSERT INTO books (id, isbn, title, description, author) VALUES
 Swagger Editor » ajudar a construir o file Swagger.yaml
 Link: https://editor.swagger.io/
 
-Install and use nodemon
+Install and use nodemon » How To Restart Your Node.js Apps Automatically with nodemon
 https://www.digitalocean.com/community/tutorials/workflow-nodemon
 
 # Help links
@@ -118,3 +118,40 @@ https://www.adminer.org/#download
 
 Node.js, MySQL and async/await
 https://codeburst.io/node-js-mysql-and-async-await-6fb25b01b628
+
+how to wait for database query to finish in node” Code Answer
+https://www.codegrepper.com/code-examples/sql/how+to+wait+for+database+query+to+finish+in+node
+
+Using Express.js Routes for Promise-based Error Handling
+https://www.toptal.com/express-js/routes-js-promises-error-handling
+
+# ORM - Object-Relational Mapping
+
+» Permite o mapeamento entre um registo numa BD relacional e um objeto.
+
+É também necessário instalar o driver para a BD escolhida:
+```table
+Biblioteca  | comando npm
+Sequelize        | npm install sequelize
+Bookshelv        | npm install ...
+Waterline        | npm install ...
+```
+
+## Tipos de ataques
+
+- Intection
+- Quebras de autenticação e gestão de sessões
+- Utilização scripts cruzados (Cross-Site Scripting - XSS)
+- Pedidos externos (Cross-Site Request Forgery - CSRF)
+
+# Swagger
+
+## POST
+
+{
+  "id": 100,
+  "isbn": 1234567892111,
+  "title": "Titulo do livro",
+  "description": "Descrição do livro muito legal",
+  "author": "Dante Mar"
+}
