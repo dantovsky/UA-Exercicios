@@ -100,3 +100,62 @@ paths:
       responses:
         "200":
           description: "Invalid input"
+    put:
+      summary: "PUT :: modify a book"
+      consumes:
+        - application/json
+      description: ""
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+                isbn:
+                  type: number
+                title:
+                  type: string
+                description:
+                  type: string
+                author:
+                  type: string
+      responses:
+        "200":
+          description: "Invalid input"
+  /livraria/livros/{id}:
+    parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The book ID
+    get:
+      summary: Get book by ID
+      responses: # Lista de respostas possíveis do endpoint
+        200:
+          description: Successfully fetched book by `id`
+          # content:
+          #   application/json:
+          #     schema:
+          #       type: object
+          #       # items:
+          #       #   type: object
+          #         properties:
+          #           id:
+          #             type: number
+          #           isbn:
+          #             type: number
+          #           title:
+          #             type: string
+          #           description:
+          #             type: string
+          #           price:
+          #             type: number
+    delete:
+      summary: Delete book by ID
+      responses: # Lista de respostas possíveis do endpoint
+        200:
+          description: Successfully deleting book by `id`

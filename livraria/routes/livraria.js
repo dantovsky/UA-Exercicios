@@ -7,7 +7,6 @@ let con = require('../connection')
 
 // GET :: Livrarias's home » Endpoint: http://localhost:3000/livraria
 router.get('/livros', (req, res) => {
-
     // Accessing MySQL DB
     const sql = "SELECT * from books";
     con.query(sql, (err, results) => {
@@ -20,7 +19,6 @@ router.get('/livros', (req, res) => {
 
 // GET :: books listing
 router.get('/livros/:id', (req, res) => {
-
     // Accessing MySQL DB
     const sql = "SELECT * from books where id = ?";
     con.query(sql, req.params.id, (err, results) => {
@@ -34,27 +32,31 @@ router.post('/livros', async (req, res, next) => {
 
     const { isbn, title, description, author } = req.body
 
-    console.log('ISBN:', req.body)
-    // res.send(req.body)
-
     // Validate if already exist ISBN
     const sqlGetById = "SELECT * from books where isbn = ?";
     con.query(sqlGetById, isbn, (err, results) => {
         if (err) throw err
 
         if (results.length > 0) {
-            res.status(401).json({ status: 'error', message: `Já existe um livro registado com o mesmo ISBN (${isbn}).` });
+            res.status(401).json({
+                status: 'error',
+                message: `Já existe um livro registado com o mesmo ISBN (${isbn}).`
+            });
         } else {
             // Accessing MySQL DB
             const sql = "INSERT INTO books (isbn, title, description, author) VALUES (?, ?, ?, ?)";
             con.query(sql, [isbn, title, description, author], (err, results) => {
                 if (err) throw res.send(err)
-                res.status(200).send({ ...results, message: results.affectedRows == 0 ? "Nenhum registo foi adicionado" : "Novo livro adicionado com sucesso" })
+                res.status(200).send({
+                    ...results,
+                    status: 'success',
+                    message: results.affectedRows == 0 ? "Nenhum registo foi adicionado" : "Novo livro adicionado com sucesso"
+                })
 
             })
         }
     })
-    
+
     // INSERT INTO books (isbn, title, description, author) VALUES (01112223339, 'Livro Teste', 'Um livro de teste.', 'Dante Marinho')
 });
 
@@ -64,19 +66,64 @@ router.put('/livros', (req, res) => {
 
     const { id, isbn, title, description, author } = req.body
 
+    // Get ISBN from specified id
+    const sqlGetIsbn = "SELECT isbn from books where id = ?";
+    con.query(sqlGetIsbn, id, (err, results) => {
+        if (err) throw err
+        
+        const previousIsbn = results[0].isbn
+
+        // Validate if already exist ISBN in  another register
+        const sqlGetByIsbn = "SELECT * from books where isbn = ? and isbn != ?";
+        con.query(sqlGetByIsbn, [isbn, previousIsbn], (err, results) => {
+            if (err) throw err
+
+            if (results.length > 0) {
+                res.status(401).json({
+                    status: 'error',
+                    message: `Já existe um livro registado com o mesmo ISBN (${isbn}).`
+                });
+            } else {
+                // Accessing MySQL DB
+                const sql = "UPDATE books SET isbn = ?, title = ?, description = ?, author = ? WHERE id = ?";
+                con.query(sql, [isbn, title, description, author, id], (err, results) => {
+                    if (err) throw res.send(err)
+                    res.status(200).send({
+                        ...results,
+                        status: 'success',
+                        message: results.affectedRows == 0 ? "Nenhum registo foi alterado" : "Livro alterado com sucesso"
+                    })
+                })
+            }
+        })
+    })
+});
+
+// PATCH :: update a book
+router.patch('/livros', (req, res) => {
+
+    const { id, isbn, title, description, author } = req.body
+
     // Validate if already exist ISBN
     const sqlGetById = "SELECT * from books where isbn = ?";
     con.query(sqlGetById, isbn, (err, results) => {
         if (err) throw err
 
         if (results.length > 0) {
-            res.status(401).json({ status: 'error', message: `Já existe um livro registado com o mesmo ISBN (${isbn}).` });
+            res.status(401).json({
+                status: 'error',
+                message: `Já existe um livro registado com o mesmo ISBN (${isbn}).`
+            });
         } else {
             // Accessing MySQL DB
             const sql = "UPDATE books SET isbn = ?, title = ?, description = ?, author = ? WHERE id = ?";
             con.query(sql, [isbn, title, description, author, id], (err, results) => {
                 if (err) throw res.send(err)
-                res.send(results)
+                res.status(200).send({
+                    ...results,
+                    status: 'success',
+                    message: results.affectedRows == 0 ? "Nenhum registo foi alterado" : "Livro alterado com sucesso"
+                })
             })
         }
     })
