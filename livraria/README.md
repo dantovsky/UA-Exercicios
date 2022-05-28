@@ -24,14 +24,15 @@ Criar a pasta do projeto
 - livraria
 
 A partir da pasta raiz, instalar
-- Express » npx express -generator
+- Express
+    » npx express-generator
 - Swagger
-    » npm i swagger -ui-express -S
+    » npm i swagger-ui-express -S
     » npm i js-yaml
     - Criar o file `swagger.yaml`
     - No file `app.js`, implementar estas linhas de code_
     ```js
-        const swaggerUI = require('swagger -ui-express');
+        const swaggerUI = require('swagger-ui-express');
         var fs = require('fs');
         var jsyaml = require('js-yaml');
         var spec = fs.readFileSync('swagger.yaml', 'utf8');
