@@ -59,3 +59,29 @@ INSERT INTO events (id, name, description, country, city, date) VALUES
 (4, "Evento 4", 'O melhor festival de Forró da cidade do Porto.', 'UK', 'London', '2022-09-10'),
 (5, "Evento 5", 'O melhor festival de Forró da cidade do Porto.', 'France', 'Paris', '2022-11-20');
 ```
+
+
+## Problemas possíveis ao instalar os pacotes
+
+Após `npm install`, pode obter erro ENOTFOUND, apresentando um request a uma rede diferente da atual.
+`Solução`: forçar a limpeza do cache do NPM:
+```
+npm cache clean --force
+```
+
+
+## Requisitos
+
+- [ ] Listar todos os eventos
+- [ ] Listar um evento dado o seu ID
+- [ ] Adicionar um evento
+- [ ] Atualizar um evento dado o seu ID
+- [ ] Remover um evento dado o seu ID
+- [ ] Restorar o estado inicial da BD
+
+
+## Regras de negócio da app
+
+
+- [] Não pode adicionar evento onde a cidade, país e nome do evento sejam iguais
+- [] Não pode criar evento com uma antecedência de mais de dois anos
