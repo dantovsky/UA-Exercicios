@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Frontend Exame Exemplo</title>
+    <style>
+        .selected {
+            background-color: aqua;
+        }
+
+        li {
+            padding: 4px;
+            width: fit-content;
+        }
+
+        .card {
+            background-color: rgb(224, 224, 224);
+            padding: 4px 12px;
+            width: fit-content;
+        }
+
+    </style>
+</head>
+
+<body>
+    <h1>Artigos</h1>
+    <div id="artigos"></div>
+
+    <h2>Add autor</h2>
+    <p>Click em um item da lista, insira um novo autor no campo de texto e então confirme no botão.</p>
+    <input type="text" name="autor" id="autor">
+    <button id="btn" onclick="addAutor();" disabled>Add autor</button>
+
+    <h2>Detalhes do artigo</h2>
+    <div id="detalhes"></div>
+
+    <script>
+
+        let selectedItem = null
+        const button = document.getElementById('btn')
+        const input = document.getElementById('autor')
+
+        // Init
+        getList()
+
+        function getList() {
+            // http://localhost:3000/artigos // http://cat-fact.herokuapp.com/facts
+            fetch('http://127.0.0.1:3000/artigos', {
+                "headers": {
+                    "accept": "*/*",
+                },
+                // "body": null,
+                "method": "GET",
+                // "mode": "cors",
+            })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res)
+
+                    let content = '<ul>'
+                    const liList = res.map(line => { return `<li onclick="setBackground(this, ${line.id})">` + line.autor.split(';').join(', ') + ' » ' + line.titulo + '</li>' })
+                    content += liList.join('')
+                    content += '</ul>'
+
+                    document.getElementById('artigos').innerHTML = content
+                    button.disabled = true
+                    input.value = null
+                })
+        }
+
+        function addAutor() {
+            if (input.value != '') {
+                fetch('http://127.0.0.1:3000/artigos/addAuthor', {
+                    "headers": {
+                        "accept": "*/*",
+                        "Content-Type": "application/json",
+                    },
+                    "body": JSON.stringify({ "id": selectedItem, "autor": document.getElementById('autor').value }),
+                    "method": "POST",
+                    "mode": "cors",
+                })
+                    .then(res => {
+                        getList()
+                    })
+            }
+        }
+
+        function getArticle(id) {
+            // http://localhost:3000/artigos // http://cat-fact.herokuapp.com/facts
+            fetch('http://127.0.0.1:3000/artigos/' + id, {
+                "headers": {
+                    "accept": "*/*",
+                },
+                // "body": null,
+                "method": "GET",
+                // "mode": "cors",
+            })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res)
+
+                    const artigo = res[0]
+
+                    let content = '<div class="card">'
+                    content += '<p>ID: ' + artigo.id + '</p>'
+                    content += '<p>Autores: ' + artigo.autor + '</p>'
+                    content += '<p>Título do artigo: ' + artigo.titulo + '</p>'
+                    content += '<p>Documento: ' + artigo.documento + '</p>'
+                    content += '<p>Keywords: ' + artigo.keywords + '</p>'
+                    content += '<p>Documento: ' + artigo.nacionalidade_autor + '</p>'
+                    content += '</div>'
+
+                    document.getElementById('detalhes').innerHTML = content
+                })
+        }
+
+        function setBackground(item, id) {
+            console.log('ID item clicado:', id)
+            selectedItem = id
+
+            // Clear previous click
+            for (elem of document.getElementsByTagName('li')) {
+                elem.classList.remove('selected')
+            }
+
+            // Select clicked item
+            item.classList.add('selected')
+
+            // Enable button
+            button.disabled = false
+
+            // Show details about article
+            getArticle(id)
+        }
+    </script>
+</body>
+
+</html>

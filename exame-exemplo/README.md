@@ -16,3 +16,33 @@ CREATE TABLE artigos (
     PRIMARY KEY (id)
 );
 ```
+
+# Comandos MySQL úteis
+
+- Update da info de uma coluna  
+  update artigos set autor = 'Dan Mar' where id = 1;
+
+- Alterar estrutura uma coluna  
+  alter table artigos modify autor varchar(255) not null;
+
+## Dados para testar
+
+POST » http://localhost:3000/artigos
+
+```json
+{
+    "autor": "Dan Mar",
+    "titulo": "O Poder da Ação",
+    "keywords": "autoajuda, motivação",
+    "documento": "o-poder-acao.pdf",
+    "nacionalidade_autor": "Brasil"
+}
+```
+
+# Links
+
+REST API com Node.js: back-end e front-end  
+https://imasters.com.br/back-end/rest-api-com-node-js-back-end-e-front-end
+
+Fetch: POST JSON data  
+https://stackoverflow.com/questions/29775797/fetch-post-json-data
