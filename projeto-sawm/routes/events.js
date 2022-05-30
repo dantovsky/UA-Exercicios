@@ -27,20 +27,19 @@ router.get('/:id', function (req, res, next) {
 });
 
 // Add a new event
-router.post('/', verifyIfEventExists, function (req, res, next) {
+router.post('/', verifyDates, verifyInitialDate, verifyIfEventExists, function (req, res, next) {
 
-    const { name, description, country, city, date } = req.body
-    const sql = `INSERT INTO events (name, description, country, city, date) VALUES (?, ?, ?, ?, ?)`;
+    const { name, description, country, city, date, endDate } = req.body
+    const sql = `INSERT INTO events (name, description, country, city, date, end_date) VALUES (?, ?, ?, ?, ?, ?)`;
 
-    conn.query(sql, [name, description, country, city, date], (err) => {
+    conn.query(sql, [name, description, country, city, date, endDate], (err) => {
         if (err) throw res.send(err)
+        return res.status(201).json({ message: "Evento adicionado com sucesso." })
     })
-
-    return res.status(201).json({ message: "Evento adicionado com sucesso." })
 });
 
 // Update an event
-router.put('/', verifyIfEventExists, function (req, res, next) {
+router.put('/', verifyDates, verifyInitialDate, verifyIfEventExists, function (req, res, next) {
 
     const { id, name, description, country, city, date } = req.body
     const sql = `
@@ -48,17 +47,28 @@ router.put('/', verifyIfEventExists, function (req, res, next) {
     SET name = ?, description = ?, country = ?, city = ?, date = ?
     WHERE id = ?`
 
-    console.log('insideput')
     conn.query(sql, [name, description, country, city, date, id], (err) => {
         if (err) throw res.send(err)
+        return res.status(201).json({ message: "Evento atualizado com sucesso." })
     })
-
-    return res.status(201).json({ message: "Evento atualizado com sucesso." })
 });
 
-// ------------------------------------------
-// Middlewares
-// ------------------------------------------
+// Delete an event
+router.delete('/:id', function (req, res, next) {
+
+    const { id } = req.params
+    const sql = `DELETE from events WHERE id = ?`
+    console.log(id)
+
+    conn.query(sql, [id], (err) => {
+        if (err) throw res.send(err)
+        return res.status(200).json({ message: "Evento removido com sucesso." })
+    })
+});
+
+// ----------------------------------------------------------------
+// » Middlewares
+// ----------------------------------------------------------------
 
 // Middleware to use in POST and PUT operations
 function verifyIfEventExists(req, res, next) {
@@ -81,14 +91,51 @@ function verifyIfEventExists(req, res, next) {
     })
 }
 
+// Middleware to verify if end_date is after initial date event, if not null
+function verifyDates(req, res, next) {
+
+    let { date, endDate } = req.body
+
+    if (endDate == null || endDate == undefined) {
+        return next()
+    }
+
+    const startDate = new Date(date)
+    endDate = new Date(endDate)
+
+    if (endDate < startDate) {
+        return res.status(400).json({ message: "A data de término não pode ser antes da data inicial do evento." });
+    } else {
+        return next()
+    }
+}
+
+// Middleware to verify if initial date is longer than 2 years
+function verifyInitialDate(req, res, next) {
+
+    const { date } = req.body
+
+    const today = new Date()
+    const startDate = new Date(date)
+
+    console.log(today)
+    console.log((startDate - today) / 1000 / 60 / 60 / 25)
+
+    if ((startDate - today) / 1000 / 60 / 60 / 24 > 731) {
+        return res.status(400).json({ message: "A data de início do evento não pode ser maior que dois anos." });
+    } else {
+        return next()
+    }
+}
+
 /*
 {
-	"id": 57,
-	"name": "Super Evento",
-	"description": "Um evento de Forró no Porto.",
-	"country": "Portugal",
-	"city": "Aveiro",
-	"date": "2022-08-15"
+  "id": 57,
+  "name": "Super Evento",
+  "description": "Um evento de Forró no Porto.",
+  "country": "Portugal",
+  "city": "Aveiro",
+  "date": "2022-08-15"
 }
 */
 

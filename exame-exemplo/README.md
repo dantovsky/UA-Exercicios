@@ -46,3 +46,11 @@ https://imasters.com.br/back-end/rest-api-com-node-js-back-end-e-front-end
 
 Fetch: POST JSON data  
 https://stackoverflow.com/questions/29775797/fetch-post-json-data
+
+SQL UPDATE all values in a field with appended string CONCAT not working
+https://stackoverflow.com/questions/4128335/sql-update-all-values-in-a-field-with-appended-string-concat-not-working
+```sql
+update table_name set data = concat(data, 'a');
+UPDATE mytable SET spares = CONCAT(spares, ',', '818') WHERE id = 1;
+UPDATE table SET data = CONCAT_WS(',', data, 'a');
+```

@@ -35,6 +35,11 @@ router.post('/addAuthor', hasArticle, function (req, res, next) {
         });
 
     });
+
+    // Formas para tentar utilizar apenas uma query SQL
+    // update table_name set data = concat(data, 'a'); --> Não tive sucesso
+    // UPDATE mytable SET spares = CONCAT(spares, ',', '818') WHERE id = 1;
+    // UPDATE table SET data = CONCAT_WS(',', data, 'a');
 });
 
 // (c) Editar um artigo

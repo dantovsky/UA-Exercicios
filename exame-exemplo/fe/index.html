@@ -43,7 +43,7 @@
         const button = document.getElementById('btn')
         const input = document.getElementById('autor')
 
-        // Init
+        // Get list when loading page
         getList()
 
         function getList() {
@@ -89,7 +89,6 @@
         }
 
         function getArticle(id) {
-            // http://localhost:3000/artigos // http://cat-fact.herokuapp.com/facts
             fetch('http://127.0.0.1:3000/artigos/' + id, {
                 "headers": {
                     "accept": "*/*",
