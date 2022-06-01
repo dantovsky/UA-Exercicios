@@ -125,3 +125,6 @@ npm cache clean --force
 
 How to subtract date/time in JavaScript?  
 https://stackoverflow.com/questions/4944750/how-to-subtract-date-time-in-javascript
+
+Swagger » Describing Responses
+https://swagger.io/docs/specification/describing-responses/

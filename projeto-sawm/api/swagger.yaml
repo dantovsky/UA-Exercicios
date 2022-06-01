@@ -1,0 +1,149 @@
+openapi: 3.0.3 # Versão feita em https://editor.swagger.io/
+info:
+  title: "Projeto SAWM » Event's API"
+  description: "Academic project for Serviços para Aplicações Web e Móveis subject."
+  version: "1.0.0"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "info@dantemarinho.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+# host: "dantemarinho.com/api/livraria"
+# basePath: "/v2"
+
+paths:
+  /events:
+    get: # Método HTTP para aceder ao endpoint
+      summary: "List all events" # Breve descrição do endpoint
+      responses: # Lista de respostas possíveis do endpoint
+        "200":
+          description: "Successfully fetched all events"
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    country:
+                      type: string
+                    city:
+                      type: string
+                    date:
+                      type: string
+                    end_date:
+                      type: string
+    post:
+      summary: Add a new event
+      consumes:
+        - application/json
+      description: You can add a new event by submiting a JSON body.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  nullable: false
+                description:
+                  type: string
+                country:
+                  type: string
+                  nullable: false
+                city:
+                  type: string
+                  nullable: false
+                date:
+                  type: string
+                  nullable: false
+                end_date:
+                  type: string
+      responses:
+        "201":
+          description: Event created with success
+    put:
+      summary: "Modify an event"
+      consumes:
+        - application/json
+      description: "You can edit an event by ID"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: number
+                name:
+                  type: string
+                  nullable: false
+                description:
+                  type: string
+                country:
+                  type: string
+                  nullable: false
+                city:
+                  type: string
+                  nullable: false
+                date:
+                  type: string
+                  nullable: false
+                end_date:
+                  type: string
+      responses:
+        "201":
+          description: "Invalid input"
+  /events/{id}:
+    parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: The event ID
+    get:
+      summary: Get an event wby ID
+      responses: # Lista de respostas possíveis do endpoint
+        "200":
+          description: Successfully fetched an event by `ID`
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  country:
+                    type: string
+                  city:
+                    type: string
+                  date:
+                    type: string
+                  end_date:
+                    type: string
+              example:
+                id: 45
+                name: O Grande Evento
+                description: Evento muito grande na cidade de Aveiro
+                country: Portugal
+                city: Aveiro
+                date: 2022-08-15
+                end_date: 2022-08-18           
+    delete:
+      summary: Delete an event by ID
+      responses: # Lista de respostas possíveis do endpoint
+        200:
+          description: Successfully deleting an event by `ID`

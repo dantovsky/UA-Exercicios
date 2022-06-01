@@ -128,15 +128,4 @@ function verifyInitialDate(req, res, next) {
     }
 }
 
-/*
-{
-  "id": 57,
-  "name": "Super Evento",
-  "description": "Um evento de Forró no Porto.",
-  "country": "Portugal",
-  "city": "Aveiro",
-  "date": "2022-08-15"
-}
-*/
-
 module.exports = router;

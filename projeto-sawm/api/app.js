@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
 
 // Swagger
 const swaggerUI = require('swagger-ui-express');
@@ -20,6 +21,7 @@ var app = express();
 // Express built-in middleware functions to support JSON-encoded
 app.use(express.json()); // Preciso disso?
 // app.use(express.urlencoded({ extended: true })); // Preciso disso?
+app.use(cors())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
