@@ -62,7 +62,7 @@ router.delete('/:id', function (req, res, next) {
 
     conn.query(sql, [id], (err) => {
         if (err) throw res.send(err)
-        return res.status(200).json({ message: "Evento removido com sucesso." })
+        return res.status(200).json({ status: 'OK', message: "Evento removido com sucesso." })
     })
 });
 

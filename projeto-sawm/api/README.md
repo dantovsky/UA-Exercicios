@@ -51,7 +51,7 @@ CREATE TABLE events (
   description varchar(300),
   country varchar(50) NOT NULL,
   city varchar(50) NOT NULL,
-  start_date timestamp NOT NULL,
+  date timestamp NOT NULL,
   end_date timestamp,
   PRIMARY KEY (id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
