@@ -10,7 +10,7 @@ $main-font-family: 'Poppins', sans-serif;
 
 body {
     font-family: $main-font-family;
-    background-color:  #f5f5f5;
+    background-color: #f5f5f5;
 
     .app {
         max-width: 1260px;
@@ -23,64 +23,72 @@ body {
             form {
                 display: flex;
                 justify-content: center;
+                align-items: center;
+                background-color: #4bc3c9;
+                width: fit-content;
+                border-radius: 50px;
+                padding-left: 18px;
+                margin: auto;
 
                 input.input {
-                    background-color:  transparent;
+                    background-color: transparent;
                     border: none;
-                    font-size: 2.8rem;
+                    font-size: 2rem;
                     font-family: $main-font-family;
                     font-weight: 600;
                     outline: none;
-                    text-shadow: 0 0 0 #6b748c;
-                    -webkit-text-fill-color: transparent;
+                    text-shadow: 0 0 0 #ffffff;
+                    -webkit-text-fill-color: #ffffff00;
                 }
 
                 button.button {
-                    color: white;
-                    background-color: #4bc3c9;
-                    border: 2px solid #4bc3c9;
-                    border-radius: 3px;
-                    height: 45px;
+                    color: #4bc3c9;
+                    background-color: #ffffff;
+                    border: 2px solid #ffffff;
+                    height: 69px;
                     text-transform: uppercase;
-                    padding: 10px 15px;
-                    font-size: .8125rem;
+                    padding: 10px 25px;
                     font-weight: 600;
                     line-height: 1.3125rem;
                     letter-spacing: 1px;
-                    font-family: Roboto,sans-serif;
+                    font-family: Roboto, sans-serif;
                     outline: none;
                     cursor: pointer;
+                    margin: 2px;
+                    font-size: 1.6rem;
+                    border-radius: 0 50px 50px 0;
 
                     &:hover {
                         background-color: #34a7ad;
                         border-color: #34a7ad;
+                        color: white;
                     }
                 }
             }
         }
-    
+
         .content {
             display: flex;
-    
+
             .menu-filter {
                 width: 280px;
-    
+
                 ul {
                     text-indent: $spacing-patten;
                     font-size: 1rem;
                     line-height: 2.5rem;
                     padding: 0;
-    
+
                     li {
                         list-style: none;
-                        
+
                         a {
                             width: fit-content;
                             text-decoration: none;
                             font-weight: 600;
                             color: $dark-gray;
                             padding: 0;
-                            
+
                             &:hover {
                                 width: fit-content;
                                 border-bottom: 2px solid $dark-gray;
@@ -90,82 +98,82 @@ body {
                         .active {
                             border-bottom: 2px solid $dark-gray;
                         }
-    
+
                     }
                 }
             }
-    
+
             .list {
                 flex-grow: 1;
                 width: 100%;
-    
-                .result-count {
+
+                .result-count,
+                button {
                     margin-left: $spacing-patten;
                 }
-    
-                .posts {
+
+                .cards {
                     margin-top: -12px !important;
-                    
+
                     .card {
                         padding: $spacing-patten;
                         box-shadow: 2px 2px 5px 0px #eee;
                         margin: $spacing-patten;
                         position: relative;
-                        
+
                         &:hover {
                             box-shadow: 2px 2px 16px 2px #ddd;
                         }
 
                         a {
                             text-decoration: none;
-            
+
                             .label {
                                 font-weight: 600;
                                 color: $dark-gray;
                             }
-            
+
                             .label--small {
-                               font-size: small;
+                                font-size: small;
                             }
-            
+
                             .text-orange {
                                 color: #ff6300;
                                 text-transform: uppercase;
                             }
-            
+
                             .text-capitalize {
                                 text-transform: capitalize;
                             }
-            
+
                             .font-medium {
                                 font-size: small;
                             }
-            
+
                             h4 {
                                 color: #172241;
                                 font-size: 1.2rem;
                                 margin: 0;
                                 font-weight: 600;
-                                line-height: 1.5rem;;
+                                line-height: 1.5rem;
+                                ;
                             }
-            
+
                             p {
                                 margin: 0;
                             }
-            
+
                             .small {
                                 margin-bottom: .3125rem;
                                 font-size: .875rem;
                                 line-height: 1.375rem;
                             }
-                            
+
                             .text-bluegrey {
                                 color: #6b748c;
                             }
-            
-                            .result__single-url {
-            
-                            }
+
+                            .result__single-url {}
                         }
 
                         .actions {
@@ -173,9 +181,10 @@ body {
                             right: 8px;
                             top: 8px;
                             display: flex;
+                            gap: 4px;
 
                             button {
-                                background: #ff6318;
+                                // background: #ff6318;
                                 border: none;
                                 color: #ffffff;
                                 padding: 2px 8px;
@@ -184,15 +193,10 @@ body {
                                 &:hover {
                                     background-color: #6b748c;
                                 }
-
-                                &:first-of-type {
-                                    margin-right: 2px;
-                                }
                             }
                         }
-    
                     }
-                    
+
                     .result__single {
                         opacity: 1;
                     }
@@ -202,30 +206,51 @@ body {
     }
 
     /* General Styles */
-    
+
+    .text-field {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .flex {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .uppercase {
+        text-transform: uppercase;
+    }
+
+    .btn-add-event {
+        height: 36px;
+    }
+
     .bg-white {
         background-color: #fff;
         color: $dark-gray;
     }
-    
-    .mt-2, .my-2 {
+
+    .mt-2,
+    .my-2 {
         margin-top: .5rem !important;
     }
-    
-    .mr-2, .mx-2 {
-        margin-right: .5rem!important;
+
+    .mr-2,
+    .mx-2 {
+        margin-right: .5rem !important;
     }
-    
+
     .mb-2 {
         margin-bottom: .5rem !important;
     }
-    
+
     h1 {
         color: $dark-gray;
         font-family: 'Poppins', sans-serif;
         margin: $spacing-patten;
     }
-    
+
     .font-medium {
         font-weight: 500;
         font-size: small;
@@ -248,13 +273,13 @@ body {
 
             .content {
                 flex-direction: column;
-        
+
                 .menu-filter {
                     width: 100%;
-            
+
                     ul {
                         display: flex;
-                        justify-content: start;      
+                        justify-content: start;
 
                         li {
 
@@ -271,16 +296,16 @@ body {
                             }
 
                             .active {
-                                border: 2px solid $dark-gray !important;
+                                border: 2px solid $dark-gray  !important;
                                 border-radius: 5px;
                                 padding-left: 4px !important;
                                 padding-right: 4px !important;
                             }
-        
+
                         }
                     }
                 }
             }
         }
-    }   
+    }
 }

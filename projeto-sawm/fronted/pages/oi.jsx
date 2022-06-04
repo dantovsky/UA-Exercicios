@@ -1,7 +1,7 @@
 // import React, { useState } from "react";
 // import "../styles.scss";
 
-const Oiii = () => {
+const MyComponent = () => {
 
     return (
         <div>
@@ -10,4 +10,4 @@ const Oiii = () => {
     );
 };
 
-export default Oiii;
+export default MyComponent;

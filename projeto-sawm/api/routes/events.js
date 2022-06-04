@@ -34,7 +34,7 @@ router.post('/', verifyDates, verifyInitialDate, verifyIfEventExists, function (
 
     conn.query(sql, [name, description, country, city, date, endDate], (err) => {
         if (err) throw res.send(err)
-        return res.status(201).json({ message: "Evento adicionado com sucesso." })
+        return res.status(201).json({ status: 'OK', message: "Evento adicionado com sucesso." })
     })
 });
 
@@ -84,7 +84,7 @@ function verifyIfEventExists(req, res, next) {
         if (err) throw res.send(err)
         if (results.length > 0) {
             // next(createError(401))
-            return res.status(400).json({ message: "An event with the same name, country, city and date already exists." });
+            return res.status(400).json({ status: 'FAIL', message: "An event with the same name, country, city and date already exists." });
         } else {
             return next()
         }
@@ -104,7 +104,7 @@ function verifyDates(req, res, next) {
     endDate = new Date(endDate)
 
     if (endDate < startDate) {
-        return res.status(400).json({ message: "A data de término não pode ser antes da data inicial do evento." });
+        return res.status(400).json({ status: 'FAIL', message: "A data de término não pode ser antes da data inicial do evento." });
     } else {
         return next()
     }

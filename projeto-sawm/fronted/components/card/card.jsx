@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '@mui/material/Button';
 
 const Card = ({ id, name, description, country, city, date, end_date, activeMenuItem, deleteEvent }) => (
     <div className={`card bg-white result__single `} data-filter={name}
@@ -12,8 +13,9 @@ const Card = ({ id, name, description, country, city, date, end_date, activeMenu
             </p>
         </a>
         <div className="actions">
-            <button data-id={id} onClick={deleteEvent}>del</button>
-            <button>edit</button>
+            <Button variant="contained">VER DETALHES</Button>
+            <button data-id={id} onClick={deleteEvent}>REMOVER</button>
+            <button>EDITAR</button>
         </div>
     </div>
 )

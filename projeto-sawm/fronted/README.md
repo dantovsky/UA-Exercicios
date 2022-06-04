@@ -46,10 +46,19 @@ npm run dev
 
 # SAWM Project
 
+# Help links
+
 How to change port in Next.js App
 https://onecompiler.com/posts/3w5u9patd/how-to-change-port-in-next-js-app
 
-# Help links
-
 React: how to pass arguments to the callback
 https://stackoverflow.com/questions/41807604/react-how-to-pass-arguments-to-the-callback
+
+Modern API data-fetching methods in React
+https://blog.logrocket.com/modern-api-data-fetching-methods-react/
+
+React app 'crashes' due to fetch/axios inability to correctly pass error to catch block
+https://stackoverflow.com/questions/67401141/react-app-crashes-due-to-fetch-axios-inability-to-correctly-pass-error-to-catc
+
+Material UI
+https://mui.com/material-ui/getting-started/usage/
