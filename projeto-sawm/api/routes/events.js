@@ -66,6 +66,34 @@ router.delete('/:id', function (req, res, next) {
     })
 });
 
+// Restore BD to initial values
+router.get('/utils/restore', (req, res) => {
+
+    // DELETE ALL
+    conn.query("DELETE FROM events", (err, results) => {
+        if (err) throw res.send(err)
+    })
+
+    // INSERT INITIAL VALUES
+    conn.query(
+        `INSERT INTO events (id, name, description, country, city, date, end_date) VALUES
+        (1, "Festival de Forró de Lisboa", 'O melhor festival de Forró da cidade de Lisboa.', 'Portugal', 'Lisboa', '2022-06-27', null),
+        (2, "Festival Dança Aveiro", 'O melhor festival de dança de Portugal.', 'Portugal', 'Aveiro', '2022-08-11', '2022-08-15'),
+        (3, "Encontro de Corais", 'Um grande encontro de corais no Porto.', 'Portugal', 'Porto', '2022-08-15', null),
+        (4, "Tap Beauty", 'Festival de Sapateado de UK.', 'UK', 'London', '2022-09-10', '2022-09-11'),
+        (5, "Forró Petit Gateaux", 'O melhor festival de Forró em Paris.', 'France', 'Paris', '2022-11-20', null),
+        (6, "Encontro de Músicos de Aveiro", 'Um encontro de amigos.', 'Portugal', 'Aveiro', '2022-08-28', null),
+        (7, "Festival Dança Faro", 'O melhor festival de dança de Portugal.', 'Portugal', 'Faro', '2022-08-12', '2022-08-16'),
+        (8, "Encontro de Flautistas", 'Um grande encontro de flautas no Porto.', 'Portugal', 'Porto', '2022-08-15', null),
+        (9, "Tap Rithmn", 'Festival de Sapateado de Lisboa.', 'Portugal', 'Lisboa', '2022-09-20', '2022-09-23'),
+        (10, "Tech Day", 'O melhor festival de Forró em Paris.', 'Espanha', 'Barcelona', '2022-11-20', null)`,
+        (err, results) => {
+            if (err) throw res.send(err)
+            res.send(results)
+        }
+    )
+})
+
 // ----------------------------------------------------------------
 // » Middlewares
 // ----------------------------------------------------------------

@@ -17,16 +17,14 @@
     "@emotion/styled": "^11.8.1",
     "@mui/icons-material": "^5.8.2",
     "@mui/material": "^5.8.2",
-    "@zeit/next-sass": "^1.0.1",
-    "next": "^10.0.3",
-    "node-sass": "^5.0.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "sass": "^1.30.0"
+    "next": "^12.1.6",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
   },
   "devDependencies": {
     "link": "^1.5.0",
     "npm": "^8.12.0",
+    "sass": "^1.52.2",
     "webpack": "^4.44.0"
   }
 }

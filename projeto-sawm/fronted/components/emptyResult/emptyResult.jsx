@@ -1,12 +1,14 @@
 import React from 'react'
-import './emptyResult.scss'
+// import './emptyResult.scss'
 
 const EmptyResult = ({ message }) => (
     <div className="emptyResult">
         <div className="left">
             <div className="text">
-                <h1 className="h1">{message || "Haven't found what you are looking for?" }</h1>
-                <p>Please give it another try!</p>
+                <br />
+                <h1 className="h1">{message || "Não encontra o que procura?" }</h1>
+                <br />
+                <p>Tente uma outra pesquisa!</p>
             </div>
         </div>
         <div className="right">

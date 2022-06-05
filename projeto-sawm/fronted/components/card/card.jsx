@@ -1,7 +1,7 @@
 import React from 'react'
-import Button from '@mui/material/Button';
+import { deleteEvent } from "../../services/eventService";
 
-const Card = ({ id, name, description, country, city, date, end_date, activeMenuItem, deleteEvent }) => (
+const Card = ({ id, name, description, country, city, date, end_date, activeMenuItem, events, eventsCopy, setEvents, setEventsCopy, showSnackbarOk, setMessage, showSnackbarFail}) => (
     <div className={`card bg-white result__single `} data-filter={name}
         data-page="1" hidden={!(activeMenuItem == name || activeMenuItem == 'All')}>
         <a href={"url"} className="" target="_blank">
@@ -13,9 +13,9 @@ const Card = ({ id, name, description, country, city, date, end_date, activeMenu
             </p>
         </a>
         <div className="actions">
-            <Button variant="contained">VER DETALHES</Button>
-            <button data-id={id} onClick={deleteEvent}>REMOVER</button>
-            <button>EDITAR</button>
+            <img src='images/details.png' alt='Details' data-id={id} onClick={deleteEvent} />
+            <img src='images/edit.png' alt='Editar' data-id={id} onClick={deleteEvent} />
+            <img src='images/delete.png' alt='Remover' onClick={() => deleteEvent(id, events, eventsCopy, setEvents, setEventsCopy, showSnackbarOk, setMessage, showSnackbarFail)} />
         </div>
     </div>
 )

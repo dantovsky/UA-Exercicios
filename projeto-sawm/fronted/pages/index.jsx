@@ -1,73 +1,46 @@
 import React, { useState, useEffect } from "react";
-import "../styles.scss";
 import EmptyResult from '../components/emptyResult/emptyResult'
 import Couting from '../components/counting/counting'
 import Card from '../components/card/card'
-import MenuItem from "../components/menuItem/menuItem";
+// import MenuItem from "../components/menuItem/menuItem";
 import Form from "../components/form/form";
 import {
     Button, TextField,
     Dialog,
     DialogActions,
     DialogContent,
-    DialogContentText,
     DialogTitle,
     Snackbar,
-    Alert
+    Alert,
+    Tooltip
 } from "@mui/material";
+import { getAllEvents, restoreBD, addEvent, deleteEvent } from "../services/eventService";
 
 const App = () => {
     const [query, setQuery] = useState('')
     const [queryApplyed, setQueryApplyed] = useState('')
-    const [resultPosts, setResultPosts] = useState([])
     const [activeMenuItem, setActiveMenuItem] = useState('All')
 
     // Novos
-    const [events, setEvents] = useState([])
-    const [eventsCopy, setEventsCopy] = useState([])
+    const [events, setEvents] = useState([]) // Main data stores here
+    const [eventsCopy, setEventsCopy] = useState([]) // A copy of main data used in search function
     const [message, setMessage] = useState('')
+    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
+    const [snackbarMessage, setSnackbarMessage] = useState('')
+    const [snackbarSeverity, setSnackbarSeverity] = useState('success')
+
+    // Hooks used in POST
+    const [name, setName] = useState('')
+    const [city, setCity] = useState('')
+    const [country, setCountry] = useState('')
+    const [date, setDate] = useState('')
+    const [endDate, setEndDate] = useState('')
+    const [description, setDescription] = useState('')
 
     useEffect(() => {
-        getAllEvents()
+        getAllEvents(setEvents, setEventsCopy, setMessage)
     }, []);
-
-    const getAllEvents = () => {
-        fetch("http://localhost:3000/events")
-            .then(res => res.json())
-            .then(res => {
-                console.log(res)
-                setEvents(res)
-                setEventsCopy(res)
-                setMessage('')
-            })
-            .catch(err => {
-                console.log('ERROR fetching data')
-                setMessage('Error fetching data...')
-            })
-    }
-
-    const deleteEvent = (event) => {
-
-        const id = event.target.dataset.id
-        console.log('ID para delete:', id)
-
-        fetch("http://localhost:3000/events/" + id, {
-            method: 'DELETE'
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                if (data.status == 'OK') {
-                    setEvents(events.filter(event => event.id != id))
-                    setEventsCopy(eventsCopy.filter(event => event.id != id))
-                    showSnackbarOk(data.message)
-                }
-            })
-            .catch(err => {
-                console.log('ERROR deleting event')
-                setMessage('Error deleting event...')
-            })
-    }
 
     // Set the active menu
     const handleActive = (menuItem) => {
@@ -95,7 +68,7 @@ const App = () => {
     // }
 
 
-    // Ser data on searching
+    // Searching events
     const searchEvents = e => {
         e.preventDefault()
 
@@ -114,11 +87,8 @@ const App = () => {
     const showEventsList = () => {
         return events.map(event =>
             <Card key={event.id} id={event.id} name={event.name} description={event.description} country={event.country}
-                city={event.city} date={event.date} end_date={event.end_date} activeMenuItem={activeMenuItem} deleteEvent={deleteEvent} />
-
-            // <Card id={post.id} category={post.category} url={post.url} target={post.target}
-            //     date={post.date} title={post.title} slug={post.slug} activeMenuItem={activeMenuItem} />
-
+                city={event.city} date={event.date} end_date={event.end_date} activeMenuItem={activeMenuItem}
+                events={events} eventsCopy={eventsCopy} setEvents={setEvents} setEventsCopy={setEventsCopy} showSnackbarOk={showSnackbarOk} setMessage={setMessage} showSnackbarFail={showSnackbarFail} />
         )
     }
 
@@ -132,60 +102,6 @@ const App = () => {
         setIsSnackbarOpen(true)
         setSnackbarMessage(message)
         setSnackbarSeverity('error')
-    }
-
-    const [isModalOpen, setIsModalOpen] = useState(false)
-    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
-    const [snackbarMessage, setSnackbarMessage] = useState('')
-    const [snackbarSeverity, setSnackbarSeverity] = useState('success')
-
-    const [name, setName] = useState('')
-    const [city, setCity] = useState('')
-    const [country, setCountry] = useState('')
-    const [date, setDate] = useState('')
-    const [endDate, setEndDate] = useState('')
-    const [description, setDescription] = useState('')
-
-    const addEvent = () => {
-        console.log('Name:', name)
-        console.log('Country:', country)
-        console.log('City:', city)
-        console.log('Date:', date)
-        console.log('End date:', endDate)
-        console.log('Description:', description)
-
-        fetch("http://localhost:3000/events/", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name, description, country, city, date, endDate
-            })
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-
-                switch (data.status) {
-                    case 'OK':
-                        getAllEvents()
-                        setIsModalOpen(false)
-                        showSnackbarOk(data.message)
-                        break;
-                    case 'FAIL':
-                        setIsModalOpen(false)
-                        showSnackbarFail(data.message)
-                        break;
-                    default:
-                        break;
-                }
-            })
-            .catch(err => {
-                console.log('ERROR adding the new event')
-                setMessage('ERROR adding the new event...')
-                showSnackbarFail(err.message)
-            })
     }
 
     return (
@@ -208,6 +124,9 @@ const App = () => {
                     <div className="flex">
                         <Couting numEvents={events?.length} queryApplyed={queryApplyed} />
                         <Button variant="contained" className="btn-add-event" onClick={() => setIsModalOpen(true)}>ADICIONA EVENTO</Button>
+                        <Tooltip title="Restaurar BD" placement="right" arrow className="cursor-pointer">
+                            <img src="images/database.png" onClick={() => restoreBD(setEvents, setEventsCopy, setMessage)} />
+                        </Tooltip>
                     </div>
                     <div id="list__results" className="cards">
                         {events?.length > 0 ? showEventsList() : <EmptyResult message={message} />}
@@ -215,6 +134,7 @@ const App = () => {
                 </div>
             </div>
 
+            {/* Modal */}
             <Dialog
                 open={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
@@ -239,7 +159,7 @@ const App = () => {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setIsModalOpen(false)}>FECHAR</Button>
-                    <Button onClick={() => addEvent()} autoFocus>Guardar</Button>
+                    <Button onClick={() => addEvent(name, description, country, city, date, endDate, setEvents, setEventsCopy, setMessage, setIsModalOpen, showSnackbarOk, showSnackbarFail)} autoFocus>Guardar</Button>
                 </DialogActions>
             </Dialog>
 

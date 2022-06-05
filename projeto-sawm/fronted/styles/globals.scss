@@ -181,18 +181,25 @@ body {
                             right: 8px;
                             top: 8px;
                             display: flex;
-                            gap: 4px;
+                            justify-content: right;
+                            align-items: center;
+                            gap: 12px;
 
                             button {
-                                // background: #ff6318;
+                                background: #ff6318;
                                 border: none;
                                 color: #ffffff;
                                 padding: 2px 8px;
                                 cursor: pointer;
+                                margin: auto;
 
                                 &:hover {
-                                    background-color: #6b748c;
+                                    // background-color: #6b748c;
                                 }
+                            }
+
+                            svg, img {
+                                cursor: pointer;
                             }
                         }
                     }
@@ -224,6 +231,10 @@ body {
 
     .btn-add-event {
         height: 36px;
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
     }
 
     .bg-white {
@@ -266,9 +277,45 @@ body {
 
         .app {
 
-            form {
-                display: flex;
-                flex-direction: column;
+            .search {
+                form {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: row;
+                    width: 100%;
+                    justify-content: space-evenly;
+                    // align-items: center;
+                    // background-color: #4bc3c9;
+                    // width: fit-content;
+                    // border-radius: 50px;
+                    // padding-left: 18px;
+                    // margin: auto;
+    
+                    input.input {
+                        width: 100%;
+                        background-color: transparent;
+                        border: none;
+                        font-size: 1.6rem;
+                        padding-right: 10px;
+                    }
+    
+                    button.button {
+                        color: #4bc3c9;
+                        background-color: #ffffff;
+                        border: 2px solid #ffffff;
+                        height: 69px;
+                        text-transform: uppercase;
+                        padding: 10px 15px;
+                        margin: 2px;
+                        font-size: 1.4rem;  
+    
+                        &:hover {
+                            background-color: #34a7ad;
+                            border-color: #34a7ad;
+                            color: white;
+                        }
+                    }
+                }
             }
 
             .content {
@@ -279,7 +326,7 @@ body {
 
                     ul {
                         display: flex;
-                        justify-content: start;
+                        justify-content: flex-start;
 
                         li {
 
@@ -305,6 +352,77 @@ body {
                         }
                     }
                 }
+            }
+        }
+    }
+}
+
+// emptyResult component
+
+.emptyResult {
+    display: flex;
+    padding: 25px;
+
+    .left {
+        width: 40%;
+        display: flex;
+
+        .text {
+            width: 480px;
+            text-align: left;
+    
+            h1 {
+                color: #172241;
+                line-height: 1.2em;
+                width: 100%;
+                margin: 0;
+
+            }
+
+            p {
+                margin: 0;
+            }
+        }
+    }
+
+    .right {
+        width: 60%;
+
+        img {
+            max-width: 380px;
+            width: 100%;
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .emptyResult {
+        display: flex;
+        flex-direction: column;
+
+        .left {
+            width: 100%;
+            display: flex;
+    
+            .text {
+                max-width: 100%;
+                text-align: left;
+        
+                h1 {
+                    font-size: 1.6rem;
+                }
+            }
+        }
+    
+        .right {
+            width: 100%;
+            margin-top: 15px;
+    
+            img {
+                max-width: 320px;
+                width: 100%;
+                margin: auto;
+                display: block;
             }
         }
     }
