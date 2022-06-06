@@ -17,11 +17,6 @@ const ModalDetails = ({ id, isModalDetailsOpen, setIsModalDetailsOpen, formMode,
     const [isModalOpen, setIsModalOpen] = useState(true)
     const [inputDisabled, setInputDisabled] = useState(true)
 
-    // Snackbar
-    // const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
-    // const [snackbarMessage, setSnackbrMessage] = useState('')
-    // const [snackbarSeverity, setSnackbarBSeverity] = useState('success')
-
     // Event details
     const [event, setEvent] = useState({
         id: 0,
@@ -34,12 +29,8 @@ const ModalDetails = ({ id, isModalDetailsOpen, setIsModalDetailsOpen, formMode,
     })
 
     useEffect(() => {
-        console.log('isModalOpen:', isModalOpen)
-        console.log('ID on init:', id)
-        console.log('formMode:', formMode)
-
         formMode === 'view' ? setInputDisabled(true) : setInputDisabled(false)
-        setIsModalOpen(true)
+        setIsModalDetailsOpen(true)
         getEventById(id, setEvent)
 
     }, [])
@@ -72,7 +63,7 @@ const ModalDetails = ({ id, isModalDetailsOpen, setIsModalDetailsOpen, formMode,
                     {/* </DialogContentText> */}
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={() => setIsModalOpen(false)}>FECHAR</Button>
+                    <Button onClick={() => setIsModalDetailsOpen(false)}>FECHAR</Button>
                     {!inputDisabled && <Button onClick={() => updateEvent(id, event, setEvents, setEventsCopy, showSnackbarOk, setMessage, showSnackbarFail, setIsModalDetailsOpen)} autoFocus>Guardar</Button>}
                 </DialogActions>
             </Dialog>
