@@ -1,7 +1,7 @@
 {
-  "name": "challenge-talkdesk",
+  "name": "projeto-sawm-frontend",
   "version": "1.0.0",
-  "description": "Challenge Talkdesk - Global Search React SSR",
+  "description": "Parte frontendo do Projeto de Serviços para Aplicações Web e Móveis",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,7 +10,7 @@
     "start": "next start"
   },
   "keywords": [],
-  "author": "",
+  "author": "Dante Marinho",
   "license": "ISC",
   "dependencies": {
     "@emotion/react": "^11.9.0",

@@ -1,4 +1,4 @@
-# Projero da disciplina de Serviços para Aplicações Web e Móveis
+# `API` do Projero da disciplina de Serviços para Aplicações Web e Móveis
 
 
 ## Definição dos endpoints
@@ -110,7 +110,7 @@ npm cache clean --force
 - [x] Adicionar um evento
 - [x] Atualizar um evento dado o seu ID
 - [x] Remover um evento dado o seu ID
-- [ ] Restaurar o estado inicial da BD
+- [x] Restaurar o estado inicial da BD
 
 
 ## Regras de negócio da app

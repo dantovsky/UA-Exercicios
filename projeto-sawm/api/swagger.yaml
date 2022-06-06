@@ -100,8 +100,10 @@ paths:
                 end_date:
                   type: string
       responses:
-        "201":
-          description: "Invalid input"
+        201:
+          description: Successfully updating an event by `ID`
+        404:
+          description: Não existe um evento com o `ID` indicado
   /events/{id}:
     parameters:
         - in: path
@@ -147,3 +149,5 @@ paths:
       responses: # Lista de respostas possíveis do endpoint
         200:
           description: Successfully deleting an event by `ID`
+        404:
+          description: Não existe um evento com o `ID` indicado

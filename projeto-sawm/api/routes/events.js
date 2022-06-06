@@ -39,26 +39,26 @@ router.post('/', verifyDates, verifyInitialDate, verifyIfEventExists, function (
 });
 
 // Update an event
-router.put('/', verifyDates, verifyInitialDate, verifyIfEventExists, function (req, res, next) {
+router.put('/', verifyIfIdExists, verifyDates, verifyInitialDate, verifyIfEventExists, function (req, res, next) {
 
-    const { id, name, description, country, city, date } = req.body
+    const { id, name, description, country, city, date, end_date } = req.body
+    console.log('end_date:', end_date)
     const sql = `
     UPDATE events
-    SET name = ?, description = ?, country = ?, city = ?, date = ?
+    SET name = ?, description = ?, country = ?, city = ?, date = ?, end_date = ?
     WHERE id = ?`
 
-    conn.query(sql, [name, description, country, city, date, id], (err) => {
+    conn.query(sql, [name, description, country, city, date, end_date, id], (err) => {
         if (err) throw res.send(err)
-        return res.status(201).json({ message: "Evento atualizado com sucesso." })
+        return res.status(201).json({ status: 'OK', message: "Evento atualizado com sucesso." })
     })
 });
 
 // Delete an event
-router.delete('/:id', function (req, res, next) {
+router.delete('/:id', verifyIfIdExists, function (req, res, next) {
 
     const { id } = req.params
     const sql = `DELETE from events WHERE id = ?`
-    console.log(id)
 
     conn.query(sql, [id], (err) => {
         if (err) throw res.send(err)
@@ -154,6 +154,29 @@ function verifyInitialDate(req, res, next) {
     } else {
         return next()
     }
+}
+
+// Middleware to use in PUT and DELETE operations
+function verifyIfIdExists(req, res, next) {
+
+    let { id } = req.body
+
+    if (id == undefined) {
+        id = req.params.id
+    }
+
+    console.log(id)
+
+    const sql = `SELECT * FROM events WHERE id = ?`;
+
+    conn.query(sql, id, (err, results) => {
+        if (err) throw res.send(err)
+        if (results.length == 0) {
+            return res.status(404).json({ status: 'FAIL', message: "Não existe evento com o ID " + id + '.'});
+        } else {
+            return next()
+        }
+    })
 }
 
 module.exports = router;

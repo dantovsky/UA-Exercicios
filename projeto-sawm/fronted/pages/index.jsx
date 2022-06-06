@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import EmptyResult from '../components/emptyResult/emptyResult'
-import Couting from '../components/counting/counting'
-import Card from '../components/card/card'
+import EmptyResult from '../components/emptyResult/EmptyResult'
+import Couting from '../components/counting/Counting'
+import Card from '../components/card/Card'
 // import MenuItem from "../components/menuItem/menuItem";
-import Form from "../components/form/form";
+import Form from "../components/form/Form";
 import {
     Button, TextField,
     Dialog,
@@ -14,7 +14,8 @@ import {
     Alert,
     Tooltip
 } from "@mui/material";
-import { getAllEvents, restoreBD, addEvent, deleteEvent } from "../services/eventService";
+import { getAllEvents, restoreBD, addEvent } from "../services/eventService";
+import ModalDetails from "../components/modalDetails/ModalDetails";
 
 const App = () => {
     const [query, setQuery] = useState('')
@@ -28,7 +29,7 @@ const App = () => {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false)
     const [snackbarMessage, setSnackbarMessage] = useState('')
-    const [snackbarSeverity, setSnackbarSeverity] = useState('success')
+    const [snackbarSeverity, setSnackbarSeverity] = useState('success') // success | error
 
     // Hooks used in POST
     const [name, setName] = useState('')
@@ -38,6 +39,12 @@ const App = () => {
     const [endDate, setEndDate] = useState('')
     const [description, setDescription] = useState('')
 
+    // Used in modal for show detais and update
+    const [idDetails, setIdDetails] = useState('')
+    const [isModalDetailsOpen, setIsModalDetailsOpen] = useState(false)
+    const [formMode, setFormMode] = useState('') // view | edit
+
+    // Get all events when component init
     useEffect(() => {
         getAllEvents(setEvents, setEventsCopy, setMessage)
     }, []);
@@ -83,12 +90,13 @@ const App = () => {
         return events.length
     }
 
-    // List posts in Card components
+    // List events in Card components
     const showEventsList = () => {
         return events.map(event =>
             <Card key={event.id} id={event.id} name={event.name} description={event.description} country={event.country}
                 city={event.city} date={event.date} end_date={event.end_date} activeMenuItem={activeMenuItem}
-                events={events} eventsCopy={eventsCopy} setEvents={setEvents} setEventsCopy={setEventsCopy} showSnackbarOk={showSnackbarOk} setMessage={setMessage} showSnackbarFail={showSnackbarFail} />
+                events={events} eventsCopy={eventsCopy} setEvents={setEvents} setEventsCopy={setEventsCopy} showSnackbarOk={showSnackbarOk} setMessage={setMessage} showSnackbarFail={showSnackbarFail}
+                setIsModalDetailsOpen={setIsModalDetailsOpen} setIdDetails={setIdDetails} setFormMode={setFormMode} />
         )
     }
 
@@ -106,6 +114,11 @@ const App = () => {
 
     return (
         <div className="app container">
+
+            {isModalDetailsOpen && <ModalDetails id={idDetails} isModalDetailsOpen={isModalDetailsOpen} setIsModalDetailsOpen={setIsModalDetailsOpen} formMode={formMode}
+            setEvents={setEvents} setEventsCopy={setEventsCopy} showSnackbarOk={showSnackbarOk} setMessage={setMessage} showSnackbarFail={showSnackbarFail}
+            />}
+
             <div className="search">
                 <Form query={query} setQuery={setQuery} searchEvents={searchEvents} />
             </div>
@@ -113,8 +126,7 @@ const App = () => {
                 <div className="menu-filter" data-section="Filters">
                     <div id="search__categories" className="mb-4">
                         <ul className="mb-3">
-                            <li>Bailes</li>
-                            <li>Workshops</li>
+                            {/* (i) Não foi feito o menu */}
                             {/* {getListMenu()} */}
                         </ul>
                     </div>
@@ -134,7 +146,8 @@ const App = () => {
                 </div>
             </div>
 
-            {/* Modal */}
+            {/* Modal to add event */}
+
             <Dialog
                 open={isModalOpen}
                 onClose={() => setIsModalOpen(false)}

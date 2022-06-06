@@ -13,6 +13,23 @@ const getAllEvents = (setEvents, setEventsCopy, setMessage) => {
         })
 }
 
+const getEventById = (id, setEvent) => {
+    fetch("http://localhost:3000/events/" + id)
+        .then(res => res.json())
+        .then(res => {
+            console.log('Evento obtido ::')
+            console.log(...res)
+            setEvent(...res)
+            // setEvents(res)
+            // setEventsCopy(res)
+            // setMessage('')
+        })
+        .catch(err => {
+            console.log('ERROR fetching data')
+            // setMessage('Error fetching data...')
+        })
+}
+
 const restoreBD = (setEvents, setEventsCopy, setMessage) => {
     fetch("http://localhost:3000/events/utils/restore")
         .then(res => res.json())
@@ -33,7 +50,7 @@ const addEvent = (name, description, country, city, date, endDate, setEvents, se
     console.log('End date:', endDate)
     console.log('Description:', description)
 
-    if (!name || ! country || !city || !date) {
+    if (!name || !country || !city || !date) {
         showSnackbarFail('Preencha os dados no formulário.')
         return false
     }
@@ -76,6 +93,61 @@ const addEvent = (name, description, country, city, date, endDate, setEvents, se
         })
 }
 
+const updateEvent = (id, event, setEvents, setEventsCopy, showSnackbarOk, setMessage, showSnackbarFail, setIsModalDetailsOpen) => {
+
+    // const id = event.target.dataset.id
+    console.log('ID para update:', id)
+    console.log('event:', event)
+
+    if (!event.name || !event.country || !event.city || !event.date) {
+        showSnackbarFail('Preencha os dados no formulário.')
+        return false
+    }
+
+    if (!event.end_date) {
+        event.end_date = null
+    }
+
+    fetch("http://localhost:3000/events/", {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: id,
+            name: event.name,
+            description: event.description,
+            country: event.country,
+            city: event.city,
+            date: event.date != null ? event.date.substr(0, 10) : event.date,
+            end_date: event.end_date != null ? event.end_date.substr(0, 10) : event.end_date
+        })
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+
+            switch (data.status) {
+                case 'OK':
+                    getAllEvents(setEvents, setEventsCopy, setMessage)
+                    setIsModalDetailsOpen(false)
+                    showSnackbarOk(data.message)
+                    break;
+                case 'FAIL':
+                    setIsModalDetailsOpen(false)
+                    showSnackbarFail(data.message)
+                    break;
+                default:
+                    break;
+            }
+        })
+        .catch(err => {
+            console.log('ERROR updating the new event')
+            setMessage('ERROR updating the new event...')
+            showSnackbarFail(err.message)
+        })
+}
+
 const deleteEvent = (id, events, eventsCopy, setEvents, setEventsCopy, showSnackbarOk, setMessage, showSnackbarFail) => {
 
     // const id = event.target.dataset.id
@@ -100,4 +172,4 @@ const deleteEvent = (id, events, eventsCopy, setEvents, setEventsCopy, showSnack
         })
 }
 
-export { getAllEvents, restoreBD, addEvent, deleteEvent }
+export { getAllEvents, restoreBD, addEvent, deleteEvent, getEventById, updateEvent }

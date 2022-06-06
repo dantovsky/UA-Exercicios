@@ -1,5 +1,4 @@
 import React from 'react'
-// import './emptyResult.scss'
 
 const EmptyResult = ({ message }) => (
     <div className="emptyResult">
