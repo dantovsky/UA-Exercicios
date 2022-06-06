@@ -1,34 +1,124 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# `Frontend` do Projero da disciplina de Serviços para Aplicações Web e Móveis
 
-## Getting Started
+Developer: Dante Ferreira Marinho
 
-First, run the development server:
+## Como rodar a app
 
-```bash
-npm run dev
-# or
-yarn dev
+Instalar dependências
+```
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Rodar o projeto
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```
+npm run dev
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Requisitos
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- [x] Listar todos os eventos
+- [x] Listar os detalhes um evento (GET by ID)
+- [x] Adicionar um evento
+- [x] Atualizar um evento
+- [x] Remover um evento
+- [x] Restaurar o estado inicial da BD
 
-## Learn More
+## Regras de negócio
 
-To learn more about Next.js, take a look at the following resources:
+- [x] Listar todos os eventos assim que entra na app
+- [x] Validar os dados, ao adicionar eevnto, para ir de encontro com os requisitos da API e estrutura da BD
+- [x] Quando a pesquisa não traz resultados, não deve exibir a listagem e deve apresentar uma mensagem
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Help links
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+How to change port in Next.js App  
+https://onecompiler.com/posts/3w5u9patd/how-to-change-port-in-next-js-app
 
-## Deploy on Vercel
+React: how to pass arguments to the callback  
+https://stackoverflow.com/questions/41807604/react-how-to-pass-arguments-to-the-callback
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Modern API data-fetching methods in React  
+https://blog.logrocket.com/modern-api-data-fetching-methods-react/
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+React app 'crashes' due to fetch/axios inability to correctly pass error to catch block  
+https://stackoverflow.com/questions/67401141/react-app-crashes-due-to-fetch-axios-inability-to-correctly-pass-error-to-catc
+
+Material UI  
+https://mui.com/material-ui/getting-started/usage/
+
+How to get the value of an input field using ReactJS?  
+https://stackoverflow.com/questions/36683770/how-to-get-the-value-of-an-input-field-using-reactjs
+
+
+# COPY do package.json
+
+Cópia de 04/06/2022 (roda perfeito com node v14.19.3 e npm v6.14.17)
+```json
+{
+  "name": "projeto-sawm-frontend",
+  "version": "1.0.0",
+  "description": "Parte frontendo do Projeto de Serviços para Aplicações Web e Móveis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.2",
+    "@mui/material": "^5.8.2",
+    "@zeit/next-sass": "^1.0.1",
+    "next": "^10.0.3",
+    "node-sass": "^5.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "sass": "^1.30.0"
+  },
+  "devDependencies": {
+    "link": "^1.5.0",
+    "npm": "^8.12.0",
+    "webpack": "^4.44.0"
+  }
+}
+```
+
+Cópia de 05/06/2022 (depois das atualizações dos pacotes e melhoria do uso do SASS
+```json
+{
+  "name": "projeto-sawm-frontend",
+  "version": "1.0.0",
+  "description": "Parte frontendo do Projeto de Serviços para Aplicações Web e Móveis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "Dante Marinho",
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.8.2",
+    "@mui/material": "^5.8.2",
+    "next": "^12.1.6",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "devDependencies": {
+    "link": "^1.5.0",
+    "npm": "^8.12.0",
+    "sass": "^1.52.2",
+    "webpack": "^4.44.0"
+  }
+}
+```
