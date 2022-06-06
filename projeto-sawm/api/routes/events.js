@@ -1,5 +1,5 @@
 var express = require('express');
-var createError = require('http-errors');
+// var createError = require('http-errors');
 var router = express.Router();
 const conn = require('../connection')
 
@@ -41,14 +41,14 @@ router.post('/', verifyDates, verifyInitialDate, verifyIfEventExists, function (
 // Update an event
 router.put('/', verifyIfIdExists, verifyDates, verifyInitialDate, verifyIfEventExists, function (req, res, next) {
 
-    const { id, name, description, country, city, date, end_date } = req.body
-    console.log('end_date:', end_date)
+    const { id, name, description, country, city, date, endDate } = req.body
+
     const sql = `
     UPDATE events
     SET name = ?, description = ?, country = ?, city = ?, date = ?, end_date = ?
     WHERE id = ?`
 
-    conn.query(sql, [name, description, country, city, date, end_date, id], (err) => {
+    conn.query(sql, [name, description, country, city, date, endDate, id], (err) => {
         if (err) throw res.send(err)
         return res.status(201).json({ status: 'OK', message: "Evento atualizado com sucesso." })
     })
@@ -121,15 +121,15 @@ function verifyIfEventExists(req, res, next) {
 
 // Middleware to verify if end_date is after initial date event, if not null
 function verifyDates(req, res, next) {
-
+    
     let { date, endDate } = req.body
 
     if (endDate == null || endDate == undefined) {
         return next()
     }
 
-    const startDate = new Date(date)
-    endDate = new Date(endDate)
+    const startDate = new Date(date.substr(0, 10))
+    endDate = new Date(endDate.substr(0, 10))
 
     if (endDate < startDate) {
         return res.status(400).json({ status: 'FAIL', message: "A data de término não pode ser antes da data inicial do evento." });
@@ -164,8 +164,6 @@ function verifyIfIdExists(req, res, next) {
     if (id == undefined) {
         id = req.params.id
     }
-
-    console.log(id)
 
     const sql = `SELECT * FROM events WHERE id = ?`;
 

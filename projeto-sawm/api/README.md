@@ -33,8 +33,8 @@ CREATE USER 'dantiii'@'localhost' IDENTIFIED WITH mysql_native_password BY 'xpto
 grant all privileges on *.* to 'dantiii'@'localhost';
 
 -- Ou
-CREATE USER 'dante'@'localhost' IDENTIFIED BY 'xpto';
-grant all privileges on *.* to 'dante'@'localhost';
+CREATE USER 'dantiii'@'localhost' IDENTIFIED BY 'xpto';
+grant all privileges on *.* to 'dantiii'@'localhost';
 ```
 
 ## Dados MySQL
@@ -54,7 +54,7 @@ CREATE TABLE events (
   date timestamp NOT NULL,
   end_date timestamp,
   PRIMARY KEY (id)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5;
 
 INSERT INTO events (id, name, description, country, city, date, end_date) VALUES
 (1, "Forró do Bom", 'O melhor festival de Forró da cidade de Lisboa.', 'Portugal', 'Lisboa', '2022-06-27', null),

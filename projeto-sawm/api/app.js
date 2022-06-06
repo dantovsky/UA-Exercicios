@@ -14,12 +14,11 @@ swaggerDocument = jsyaml.load(spec);
 
 var indexRouter = require('./routes/index');
 var eventsRouter = require('./routes/events');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
 // Express built-in middleware functions to support JSON-encoded
-app.use(express.json()); // Preciso disso?
+app.use(express.json());
 // app.use(express.urlencoded({ extended: true })); // Preciso disso?
 app.use(cors())
 
@@ -40,10 +39,9 @@ app.use(
   swaggerUI.setup(swaggerDocument)
 )
 
-// Base endpointsc  
+// Base endpoints  
 app.use('/', indexRouter);
 app.use('/events', eventsRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

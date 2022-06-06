@@ -10,11 +10,9 @@ import {
 } from "@mui/material";
 import { getEventById, updateEvent } from "../../services/eventService";
 
-// , isModalOpen, setIsModalOpen 
 const ModalDetails = ({ id, isModalDetailsOpen, setIsModalDetailsOpen, formMode, setEvents, setEventsCopy, showSnackbarOk, setMessage, showSnackbarFail }) => {
 
     // Modal
-    const [isModalOpen, setIsModalOpen] = useState(true)
     const [inputDisabled, setInputDisabled] = useState(true)
 
     // Event details

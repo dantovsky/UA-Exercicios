@@ -120,7 +120,7 @@ const updateEvent = (id, event, setEvents, setEventsCopy, showSnackbarOk, setMes
             country: event.country,
             city: event.city,
             date: event.date != null ? event.date.substr(0, 10) : event.date,
-            end_date: event.end_date != null ? event.end_date.substr(0, 10) : event.end_date
+            endDate: event.end_date != null ? event.end_date.substr(0, 10) : event.end_date
         })
     })
         .then(res => res.json())

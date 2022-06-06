@@ -1,5 +1,5 @@
 import React from 'react'
-
+// (!) Este componente não está em uso
 const MenuItem = ({item, activeMenuItem, handleActive}) => (
     <li key={item}>
         <a href="#" className={activeMenuItem === item ? 'menu-filter-item active' : 'menu-filter-item'}

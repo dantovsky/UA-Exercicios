@@ -1,11 +1,11 @@
 {
   "name": "projeto-sawm-frontend",
   "version": "1.0.0",
-  "description": "Parte frontendo do Projeto de Serviços para Aplicações Web e Móveis",
+  "description": "Aplicação frontend do Projeto de Serviços para Aplicações Web e Móveis",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "next dev -p 3002",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start"
   },
@@ -24,7 +24,6 @@
   "devDependencies": {
     "link": "^1.5.0",
     "npm": "^8.12.0",
-    "sass": "^1.52.2",
-    "webpack": "^4.44.0"
+    "sass": "^1.52.2"
   }
 }
