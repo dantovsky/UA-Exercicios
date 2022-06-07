@@ -127,7 +127,7 @@ function verifyDates(req, res, next) {
     if (endDate == null || endDate == undefined) {
         return next()
     }
-console.log('\nBODY', req.body)
+
     const startDate = new Date(date.substr(0, 10))
     endDate = new Date(endDate.substr(0, 10))
 
@@ -147,7 +147,7 @@ function verifyInitialDate(req, res, next) {
     const startDate = new Date(date)
 
     console.log(today)
-    console.log((startDate - today) / 1000 / 60 / 60 / 25)
+    console.log((startDate - today) / 1000 / 60 / 60 / 24)
 
     if ((startDate - today) / 1000 / 60 / 60 / 24 > 731) {
         return res.status(400).json({ message: "A data de início do evento não pode ser maior que dois anos." });

@@ -4,7 +4,8 @@ const config = {
     port: "3306",
     user: "dantiii",
     password: "xpto",
-    database: "projeto_sawm"
+    database: "projeto_sawm",
+    timezone: 'utc'
 };
 let con = mysql.createConnection(config);
 
