@@ -29,7 +29,7 @@ const ModalDetails = ({ id, isModalDetailsOpen, setIsModalDetailsOpen, formMode,
     useEffect(() => {
         formMode === 'view' ? setInputDisabled(true) : setInputDisabled(false)
         setIsModalDetailsOpen(true)
-        getEventById(id, setEvent)
+        getEventById(id, setEvent, showSnackbarFail)
 
     }, [])
 

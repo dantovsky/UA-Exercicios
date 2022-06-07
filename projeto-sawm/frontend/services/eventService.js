@@ -13,32 +13,31 @@ const getAllEvents = (setEvents, setEventsCopy, setMessage) => {
         })
 }
 
-const getEventById = (id, setEvent) => {
+const getEventById = (id, setEvent, showSnackbarFail) => {
     fetch("http://localhost:3000/events/" + id)
         .then(res => res.json())
         .then(res => {
             console.log('Evento obtido ::')
             console.log(...res)
             setEvent(...res)
-            // setEvents(res)
-            // setEventsCopy(res)
-            // setMessage('')
         })
         .catch(err => {
             console.log('ERROR fetching data')
-            // setMessage('Error fetching data...')
+            showSnackbarFail('Error fetching data...')
         })
 }
 
-const restoreBD = (setEvents, setEventsCopy, setMessage) => {
+const restoreBD = (setEvents, setEventsCopy, setMessage, showSnackbarOk, showSnackbarFail) => {
     fetch("http://localhost:3000/events/utils/restore")
         .then(res => res.json())
         .then(res => {
-            getAllEvents(setEvents, setEventsCopy, setMessage)
+            getAllEvents(setEvents, setEventsCopy, setMessage) // list the restored events
+            showSnackbarOk('Events restored from BD.')
         })
         .catch(err => {
             console.log('ERROR restoring data')
             setMessage('Error restoring data...')
+            showSnackbarFail('Fail restoring data.... Has something wrong with connection.')
         })
 }
 
@@ -89,15 +88,11 @@ const addEvent = (name, description, country, city, date, endDate, setEvents, se
         .catch(err => {
             console.log('ERROR adding the new event')
             setMessage('ERROR adding the new event...')
-            showSnackbarFail(err.message)
+            showSnackbarFail('Fail to save the new event.')
         })
 }
 
 const updateEvent = (id, event, setEvents, setEventsCopy, showSnackbarOk, setMessage, showSnackbarFail, setIsModalDetailsOpen) => {
-
-    // const id = event.target.dataset.id
-    console.log('ID para update:', id)
-    console.log('event:', event)
 
     if (!event.name || !event.country || !event.city || !event.date) {
         showSnackbarFail('Preencha os dados no formulário.')

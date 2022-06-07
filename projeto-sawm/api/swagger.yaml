@@ -1,6 +1,6 @@
 openapi: 3.0.3 # Versão feita em https://editor.swagger.io/
 info:
-  title: "Projeto SAWM » Event's API"
+  title: Event's API » Projeto de Serviços para Aplicações Web e Móveis (SAWM)
   description: "Academic project for Serviços para Aplicações Web e Móveis subject."
   version: "1.0.0"
   termsOfService: "http://swagger.io/terms/"
@@ -15,7 +15,7 @@ paths:
     get: # Método HTTP para aceder ao endpoint
       summary: "List all events" # Breve descrição do endpoint
       responses: # Lista de respostas possíveis do endpoint
-        "200":
+        200:
           description: "Successfully fetched all events"
           content:
             application/json:
@@ -66,10 +66,12 @@ paths:
                 end_date:
                   type: string
       responses:
-        "201":
+        201:
           description: Event created with success
+        400:
+          description: FAIL - An event with the same name, country, city and date already exists
     put:
-      summary: "Modify an event"
+      summary: "Update an event"
       consumes:
         - application/json
       description: "You can edit an event by ID"
@@ -100,8 +102,10 @@ paths:
       responses:
         201:
           description: Successfully updating an event by `ID`
+        400:
+          description: FAIL - An event with the same name, country, city and date already exists
         404:
-          description: Não existe um evento com o `ID` indicado
+          description: There is no event with the given `ID`
   /events/{id}:
     parameters:
         - in: path
@@ -113,7 +117,7 @@ paths:
     get:
       summary: Get an event wby ID
       responses: # Lista de respostas possíveis do endpoint
-        "200":
+        200:
           description: Successfully fetched an event by `ID`
           content:
             application/json:
@@ -148,4 +152,4 @@ paths:
         200:
           description: Successfully deleting an event by `ID`
         404:
-          description: Não existe um evento com o `ID` indicado
+          description: There is no event with the given `ID`

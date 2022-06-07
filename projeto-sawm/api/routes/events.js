@@ -127,7 +127,7 @@ function verifyDates(req, res, next) {
     if (endDate == null || endDate == undefined) {
         return next()
     }
-
+console.log('\nBODY', req.body)
     const startDate = new Date(date.substr(0, 10))
     endDate = new Date(endDate.substr(0, 10))
 

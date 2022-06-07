@@ -144,7 +144,7 @@ const App = () => {
                         <Couting numEvents={events?.length} queryApplyed={queryApplyed} />
                         <Button variant="contained" className="btn-add-event" onClick={() => setIsModalOpen(true)}>ADICIONA EVENTO</Button>
                         <Tooltip title="Restaurar BD" placement="right" arrow className="cursor-pointer">
-                            <img src="images/database.png" onClick={() => restoreBD(setEvents, setEventsCopy, setMessage)} />
+                            <img src="images/database.png" onClick={() => restoreBD(setEvents, setEventsCopy, setMessage, showSnackbarOk, showSnackbarFail)} />
                         </Tooltip>
                     </div>
                     <div id="list__results" className="cards">
