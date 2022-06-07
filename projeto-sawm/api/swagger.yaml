@@ -63,7 +63,7 @@ paths:
                 date:
                   type: string
                   nullable: false
-                end_date:
+                endDate:
                   type: string
       responses:
         201:
@@ -97,7 +97,7 @@ paths:
                 date:
                   type: string
                   nullable: false
-                end_date:
+                endDate:
                   type: string
       responses:
         201:
