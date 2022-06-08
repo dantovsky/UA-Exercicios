@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 
     conn.query(sql, (err, results) => {
         if (err) throw res.send(err)
-        res.json(results);
+        res.json(results); // Returns status 200 by default
     })
 });
 
@@ -22,7 +22,7 @@ router.get('/:id', function (req, res, next) {
 
     conn.query(sql, id, (err, results) => {
         if (err) throw res.send(err)
-        res.json(results);
+        res.json(results); // Returns status 200 by default
     })
 });
 
@@ -112,7 +112,7 @@ function verifyIfEventExists(req, res, next) {
         if (err) throw res.send(err)
         if (results.length > 0) {
             // next(createError(401))
-            return res.status(400).json({ status: 'FAIL', message: "An event with the same name, country, city and date already exists." });
+            return res.status(400).json({ status: 'FAIL', message: 'Um evento com o mesmo name, country, city e date já existe.' });
         } else {
             return next()
         }
@@ -132,7 +132,7 @@ function verifyDates(req, res, next) {
     endDate = new Date(endDate.substr(0, 10))
 
     if (endDate < startDate) {
-        return res.status(400).json({ status: 'FAIL', message: "A data de término não pode ser antes da data inicial do evento." });
+        return res.status(400).json({ status: 'FAIL', message: 'A data de término não pode ser antes da data inicial do evento.' });
     } else {
         return next()
     }
@@ -150,7 +150,7 @@ function verifyInitialDate(req, res, next) {
     console.log((startDate - today) / 1000 / 60 / 60 / 24)
 
     if ((startDate - today) / 1000 / 60 / 60 / 24 > 731) {
-        return res.status(400).json({ message: "A data de início do evento não pode ser maior que dois anos." });
+        return res.status(400).json({ status: 'FAIL', message: 'A data de início do evento não pode ser maior que dois anos.' });
     } else {
         return next()
     }
@@ -170,7 +170,7 @@ function verifyIfIdExists(req, res, next) {
     conn.query(sql, id, (err, results) => {
         if (err) throw res.send(err)
         if (results.length == 0) {
-            return res.status(404).json({ status: 'FAIL', message: "Não existe evento com o ID " + id + '.'});
+            return res.status(404).json({ status: 'FAIL', message: 'Não existe evento com o ID ' + id + '.'});
         } else {
             return next()
         }

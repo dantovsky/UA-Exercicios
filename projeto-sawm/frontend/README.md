@@ -2,6 +2,15 @@
 
 Developer: Dante Ferreira Marinho
 
+Tela inicial
+![Projeto SAWM » Frontend](public/images/listing.png)
+
+Adicionando evento
+![Projeto SAWM » Frontend](public/images/add-event.png)
+
+Erro ao obter a listagem dos eventos
+![Projeto SAWM » Frontend](public/images/error-fetching-data.png)
+
 ## Como rodar a app
 
 Instalar dependências

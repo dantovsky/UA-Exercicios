@@ -1,5 +1,6 @@
 # `API` do Projero da disciplina de Serviços para Aplicações Web e Móveis
 
+![Projeto SAWM » API](public/images/json.png)
 
 ## Definição dos endpoints
 
