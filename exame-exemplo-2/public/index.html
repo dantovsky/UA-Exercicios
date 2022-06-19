@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExAME eXEMPLO 2</title>
+    <style>
+        #section-author {
+            background-color: rgb(230, 230, 230);
+            padding: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Hello Exam Exemple 2</h1>
+    <p>
+        Indique um ID de um artigo:
+        <input type="number" id="id">
+    </p>
+    <button onclick="showArticle()">Show artigo</button>
+    <div id="article"></div>
+
+    <div id="section-author" class="hidden">
+        <p>
+            Add novo autor a este artigo:
+            <input type="text" id="autor">
+        </p>
+        <button onclick="addAuthor()">Adicionar</button>
+    </div>
+
+    <script>
+        // (3a)
+        function showArticle() {
+
+            const id = document.getElementById('id').value
+
+            fetch('http://localhost:3000/artigos/' + id)
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res.data)
+                    const artigo = res.data[0]
+
+                    let html = `
+                <p>Titulo: ${artigo.titulo}</p>
+                <p>Autores: ${artigo.autores}</p>
+                <p>Keywords: ${artigo.keywords}</p>
+                <p>Documento: ${artigo.documento}</p>
+                <p>Nacionalidade do autor: ${artigo.nacionalidade_autor}</p>
+                    `
+                    document.getElementById('article').innerHTML = html
+                    document.getElementById('section-author').classList.remove('hidden')
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // (3b)
+        function addAuthor() {
+
+            const id = document.getElementById('id').value
+            const autor = document.getElementById('autor').value
+
+            fetch('http://localhost:3000/artigos/addAutor',
+                {
+                    "method": 'PUT',
+                    "headers": {
+                        "Content-Type": "application/json",
+                    },
+                    "body": JSON.stringify({ id: id, autor: autor })
+                })
+                .then(res => res.json())
+                .then(res => {
+                    console.log(res.data)
+                    showArticle()
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+    </script>
+</body>
+
+</html>
