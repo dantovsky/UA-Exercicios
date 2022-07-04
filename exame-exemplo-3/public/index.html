@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend Exame Exemplo 3</title>
+</head>
+
+<body>
+    <h1>Exame Exemplo 3</h1>
+    <div>
+        ID do artigo que deseja listar: <br>
+        <input type="text" name="id" id="id" onc>
+        <button onclick="getArticle()">Listar artigo</button>
+        <div id="artigo"></div>
+    </div>
+
+    <br>
+
+    <div>
+        Adicionar autor <br>
+        <input type="text" name="add-author" id="add-author">
+        <button id="btn-author" onclick="addAuthor()" disabled>Add autor</button>
+    </div>
+
+    <script>
+        const baseURL = 'http://localhost:3000/'
+
+        function getArticle() {
+
+            const id = document.getElementById('id').value
+
+            fetch(baseURL + 'artigos/' + id)
+                .then(res => res.json())
+                .then(res => {
+                    document.getElementById('artigo').innerHTML = JSON.stringify(res)
+                    if (res.status == false) {
+                        document.getElementById('btn-author').setAttribute('disabled', 'true')
+                    } else {
+                        document.getElementById('btn-author').removeAttribute('disabled')
+                    }
+                })
+        }
+
+        function addAuthor() {
+
+            const id = document.getElementById('id').value
+            const author = document.getElementById('add-author').value
+
+            fetch((baseURL + 'artigos/addAuthor/' + id), {
+                "headers": {
+                    "Content-Type": "application/json"
+                },
+                "method": 'POST',
+                "body": JSON.stringify({ "novoAutor": author })
+            })
+                .then(res => res.json())
+                .then(res => {
+                    getArticle()
+                })
+        }
+    </script>
+</body>
+
+</html>
