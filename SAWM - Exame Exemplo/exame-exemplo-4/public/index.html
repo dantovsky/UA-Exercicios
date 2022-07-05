@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exame Exemplo 4</title>
+</head>
+
+<body>
+    Insira ID do artigo <br>
+    <input type="text" id="inputId">
+    <button id="btnId" onclick="getArtigo()">Listar detalhes</button>
+    <div id="artigo"></div>
+
+    <br><br>
+
+    Inrira um novo autor <br>
+    <input type="text" id="inputAutor">
+    <button id="btnAutor" onclick="addAutor()" disabled>Inserir autor</button>
+
+    <script>
+        const baseURL = 'http://localhost:3000/'
+
+        function getArtigo() {
+
+            const id = document.getElementById('inputId').value
+
+            fetch(baseURL + 'artigos/' + id)
+                .then(res => res.json())
+                .then(res => {
+                    document.getElementById('artigo').innerHTML = JSON.stringify(res)
+                    document.getElementById('btnAutor').removeAttribute('disabled')
+                })
+        }
+
+        function addAutor() {
+            const id = document.getElementById('inputId').value
+            const autor = document.getElementById('inputAutor').value
+
+            fetch(baseURL + 'artigos/addAutor/' + id, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ autores: autor })
+            })
+                .then(res => res.json())
+                .then(res => {
+                    getArtigo()
+                })
+        }
+    </script>
+</body>
+
+</html>
