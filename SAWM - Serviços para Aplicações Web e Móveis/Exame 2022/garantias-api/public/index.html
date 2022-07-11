@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exame SAWM 2022</title>
+    <style>
+        li {
+            list-style: none;
+            background-color: #eee;
+            padding: 4px;
+            margin-bottom: 8px;
+        }
+
+        .garantias {
+            display: flex;
+        }
+
+        .form div {
+            width: 300px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Exame SAWM | Garantias</h1>
+    <h2>Listagem das garantias</h2>
+    <div class="garantias">
+        <ul id="garantias"></ul>
+    </div>
+
+    <h2>Adicionar nova garantia</h2>
+    <div class="form">
+        <div>
+            <span>Item:</span> <input type="text" id="item">
+        </div>
+        <div>
+            <span>dataCompra:</span> <input type="text" id="dataCompra">
+        </div>
+        <div>
+            <span>duracao:</span> <input type="text" id="duracao">
+        </div>
+        <div>
+            <span>IDLocalCompra:</span> <input type="text" id="IDLocalCompra">
+        </div>
+        <div>
+            <span>Nota:</span> <input type="text" id="Nota">
+        </div>
+    </div>
+    <button id="send" onclick="addGarantia()">Add nova compra</button>
+
+    <script>
+        function listAllGarantias() {
+            fetch('http://localhost:3000/garantias/ativas')
+                .then(res => res.json())
+                .then(res => {
+
+                    let content = ''
+                    for (garantia of res.data) {
+                        console.log(garantia)
+                        content += `<li>${garantia.item} :: Data de compra: ${garantia.dataCompra} :: Garantia: ${garantia.duracao} anos<br>Nota: ${garantia.Nota}</li>`
+                    }
+                    document.getElementById('garantias').innerHTML = content
+                })
+        }
+        listAllGarantias()
+
+        function addGarantia() {
+            fetch('http://localhost:3000/garantias', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    item: document.getElementById('item').value,
+                    dataCompra: document.getElementById('dataCompra').value,
+                    duracao: document.getElementById('duracao').value,
+                    IDLocalCompra: document.getElementById('IDLocalCompra').value,
+                    Nota: document.getElementById('Nota').value
+                })
+            })
+                .then(res => res.json())
+                .then(res => {
+                    listAllGarantias()
+                })
+        } 
+    </script>
+</body>
+
+</html>

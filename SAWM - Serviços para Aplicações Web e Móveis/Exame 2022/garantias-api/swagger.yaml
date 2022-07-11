@@ -1,0 +1,43 @@
+openapi: "3.0.3"
+info:
+    title: Exame SAWM
+    description: Implementação para o exame de SAWM
+    version: "1.0.0"
+paths:
+    /garantias:
+        post:
+            summary: "Adiciona uma nova garantia"
+            responses:
+                201:
+                    description: Nova garantia adicionada
+    /garantias/ativas:
+        get:
+            summary: "Obtém todas as garantias ativas"
+            responses:
+                200:
+                    description: Listagem das garantias ativas
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                properties:
+                                    ID:
+                                        type: number
+                                    item:
+                                        type: string
+                                    dataCompra:
+                                        type: string
+                                    duracao:
+                                        type: number
+                                    IDLocalCompra:
+                                        type: number
+                                    Nota:
+                                        type: string
+                404:
+                    description: "Resource not found"
+    /garantias/local/:cidade:
+        get:
+            summary: "Obtém todas as garantias de um mesmo local"
+            responses:
+                200:
+                    description: Listagem das garantias de um mesmo local
