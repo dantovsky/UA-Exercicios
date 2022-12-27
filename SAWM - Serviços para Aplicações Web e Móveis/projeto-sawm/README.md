@@ -1,4 +1,4 @@
-# Projero da disciplina de Serviços para Aplicações Web e Móveis
+# Projeto da disciplina de Serviços para Aplicações Web e Móveis
 
 Orientações sobre como rodar o projeto:
 01. Para rodar este projeto é necessário primeiramente instalar o MySQL no sistema.
